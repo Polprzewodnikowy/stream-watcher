@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Divider, Grid, IconButton, MenuItem, MenuList, SwipeableDrawer } from '@material-ui/core';
+import { Divider, Grid, IconButton, MenuItem, MenuList, SwipeableDrawer, Tooltip } from '@material-ui/core';
 import { Close, ChatSharp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { Context, SET_CHANNEL, SET_USERNAME, SET_SHOW_CHAT } from './ContextProvider';
@@ -96,8 +96,12 @@ export default function App() {
         {
           state.channel &&
           <>
-            <IconButton onClick={toggleShowChat}><ChatSharp /></IconButton>
-            <IconButton onClick={() => setChannel(null)}><Close /></IconButton>
+            <Tooltip title='Toggle chat'>
+              <IconButton onClick={toggleShowChat}><ChatSharp /></IconButton>
+            </Tooltip>
+            <Tooltip title='Close stream'>
+              <IconButton onClick={() => setChannel(null)}><Close /></IconButton>
+            </Tooltip>
           </>
         }
       </Header>
