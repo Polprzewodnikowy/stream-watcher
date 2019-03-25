@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 });
 
 export default function TwitchPlayer({ channel, targetID = 'twitch-player' }) {
-  const styles = useStyles();
+  const style = useStyles();
 
   const [player, setPlayer] = useState(null);
 
@@ -29,6 +29,6 @@ export default function TwitchPlayer({ channel, targetID = 'twitch-player' }) {
   }, [channel]);
 
   return (
-    <div id={targetID} className={styles.player} />
+    <div id={targetID} className={style.player} />
   );
 }

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Divider, IconButton, MenuItem, MenuList, SwipeableDrawer } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import { Divider, Grid, IconButton, MenuItem, MenuList, SwipeableDrawer } from '@material-ui/core';
+import { Close, ChatSharp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
-import { Context, SET_CHANNEL, SET_USERNAME } from './ContextProvider';
+import { Context, SET_CHANNEL, SET_USERNAME, SET_SHOW_CHAT } from './ContextProvider';
 import Channel from './Channel';
 import Header from './Header';
 import TwitchPlayer from './TwitchPlayer';
 import UserInput from './UserInput';
 import { getChannels } from './twitchApi';
+import TwitchChat from './TwitchChat';
 
 const useStyles = makeStyles({
   app: {
@@ -19,6 +20,12 @@ const useStyles = makeStyles({
   list: {
     width: '400px',
     maxWidth: '400px'
+  },
+  player: {
+    width: '100%'
+  },
+  chat: {
+    minWidth: '335px'
   }
 });
 
@@ -36,6 +43,10 @@ export default function App() {
 
   const setUsername = (username) => {
     dispatch({ type: SET_USERNAME, payload: username })
+  }
+
+  const toggleShowChat = () => {
+    dispatch({ type: SET_SHOW_CHAT, payload: !state.showChat });
   }
 
   const fetchChannelList = () => {
@@ -82,9 +93,28 @@ export default function App() {
         </MenuList>
       </SwipeableDrawer>
       <Header displayStatus channel={state.channel} setDrawerOpen={() => setDrawerOpen(true)}>
-        {state.channel && <IconButton onClick={() => setChannel(null)}><Close /></IconButton>}
+        {
+          state.channel &&
+          <>
+            <IconButton onClick={toggleShowChat}><ChatSharp /></IconButton>
+            <IconButton onClick={() => setChannel(null)}><Close /></IconButton>
+          </>
+        }
       </Header>
-      {state.channel && <TwitchPlayer channel={state.channel} />}
+      <Grid container wrap='nowrap'>
+        {
+          state.channel &&
+          <Grid item className={style.player}>
+            <TwitchPlayer channel={state.channel} />
+          </Grid>
+        }
+        {
+          state.channel && state.showChat &&
+          <Grid item className={style.chat}>
+            <TwitchChat channel={state.channel} />
+          </Grid>
+        }
+      </Grid>
     </div>
   );
 }

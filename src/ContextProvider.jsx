@@ -2,10 +2,12 @@ import React, { createContext, useReducer } from 'react'
 
 export const SET_CHANNEL = 'SET_CHANNEL';
 export const SET_USERNAME = 'SET_USERNAME';
+export const SET_SHOW_CHAT = 'SET_SHOW_CHAT';
 
 const initialState = {
   channel: JSON.parse(localStorage.getItem('channel')),
-  username: localStorage.getItem('username') || ''
+  username: localStorage.getItem('username') || '',
+  showChat: localStorage.getItem('showChat') || true
 }
 
 const setTitle = (title) => {
@@ -27,6 +29,9 @@ function reducer(state, action) {
     case SET_USERNAME:
       localStorage.setItem('username', action.payload);
       return { ...state, username: action.payload };
+    case SET_SHOW_CHAT:
+      localStorage.setItem('showChat', action.payload);
+      return { ...state, showChat: action.payload };
     default:
       return state;
   }
