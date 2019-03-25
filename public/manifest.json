@@ -1,0 +1,15 @@
+{
+  "short_name": "Stream Watcher",
+  "name": "Stream Watcher - Lightweight web client for Twitch",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192 144x144 96x96 72x72 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4a148c",
+  "background_color": "#111111"
+}

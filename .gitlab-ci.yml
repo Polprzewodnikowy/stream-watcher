@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: node:latest
+  script:
+    - npm install
+    - npm run build
+    - rm -rf public
+    - mv build public
+    - cp public/index.html public/404.html
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
