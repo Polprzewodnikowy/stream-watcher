@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
   buttonBase: {
-    margin: '4px',
+    padding: '4px',
   },
 })
 
