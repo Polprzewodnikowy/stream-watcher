@@ -1,0 +1,1 @@
+export const SIDEBAR_SET_STATE = 'SIDEBAR_SET_STATE';
