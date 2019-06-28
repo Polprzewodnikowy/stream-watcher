@@ -1,4 +1,4 @@
-import ChannelListContainer from './ChannelList';
+import ChannelListContainer from './ChannelListContainer';
 
 export {
   ChannelListContainer,

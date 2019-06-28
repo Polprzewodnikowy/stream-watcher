@@ -35,7 +35,10 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
   toggleSidebar: PropTypes.func,
 };
 

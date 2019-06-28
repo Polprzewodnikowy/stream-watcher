@@ -28,6 +28,10 @@ const ChannelList = ({ channels, selectedChannel }) => {
   );
 };
 
+ChannelList.defaultProps = {
+  selectedChannel: null,
+};
+
 ChannelList.propTypes = {
   channels: PropTypes.arrayOf(PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
@@ -37,7 +41,7 @@ ChannelList.propTypes = {
     type: PropTypes.string,
     viewers: PropTypes.number,
   })).isRequired,
-  selectedChannel: PropTypes.string.isRequired,
+  selectedChannel: PropTypes.string,
 };
 
 export default ChannelList;

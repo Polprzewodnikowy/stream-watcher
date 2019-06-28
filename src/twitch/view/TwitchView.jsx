@@ -21,9 +21,6 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '335px',
     },
   },
-  gridHideChat: {
-    display: 'none',
-  },
   playerWrapperOutside: {
     height: '100%',
     [theme.breakpoints.down('xs')]: {
@@ -58,9 +55,11 @@ const TwitchView = ({ showTwitch, showChat }) => {
               </div>
             </div>
           </Grid>
-          <Grid sm item className={showChat ? styles.gridChat : styles.gridHideChat}>
-            <TwitchChatContainer />
-          </Grid>
+          {showChat && (
+            <Grid sm item className={styles.gridChat}>
+              <TwitchChatContainer />
+            </Grid>
+          )}
         </Grid>
       ) : (
         null

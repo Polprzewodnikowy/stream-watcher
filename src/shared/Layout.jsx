@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/styles';
 import { HeaderContainer } from 'shared/header';
 import { TitleContainer } from 'shared/title';
 import { SidebarContainer } from 'shared/sidebar';
-import ChannelListContainer from 'shared/channelList/ChannelListContainer';
-import ActionButtonsContainer from './actionButtons/ActionButtonsContainer';
+import { HeaderButtons } from 'shared/header/buttons';
+import { ChannelListContainer } from 'shared/channelList';
 
 const useStyles = makeStyles({
   app: {
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
     <div className={styles.app}>
       <HeaderContainer>
         <TitleContainer showFullTitle />
-        <ActionButtonsContainer />
+        <HeaderButtons />
       </HeaderContainer>
       {children}
       <SidebarContainer>

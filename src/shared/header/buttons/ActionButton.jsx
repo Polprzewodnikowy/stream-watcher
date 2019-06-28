@@ -33,12 +33,13 @@ const ActionButton = ({
 };
 
 ActionButton.defaultProps = {
+  icon: false,
   tooltip: '',
 };
 
 ActionButton.propTypes = {
   children: PropTypes.element.isRequired,
-  icon: PropTypes.bool.isRequired,
+  icon: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   tooltip: PropTypes.string,
 };

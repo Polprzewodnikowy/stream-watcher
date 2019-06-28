@@ -39,7 +39,7 @@ const ChannelListItem = ({
   const styles = useStyles();
   const avatarClassName = !isStreamLiveOrRerun(type) ? styles.dimAvatar : '';
   const gameText = isStreamLiveOrRerun(type) && gameTitle;
-  const viewersText = isStreamLiveOrRerun(type) && viewers && `${getIcon(type)} ${viewers}`;
+  const viewersText = isStreamLiveOrRerun(type) && viewers > 0 && ` ${getIcon(type)} ${viewers}`;
 
   return (
     <ListItem
@@ -47,20 +47,22 @@ const ChannelListItem = ({
       selected={isSelected}
       onClick={() => changeChannel(login)}
     >
-      <ListItemAvatar>
-        <Avatar className={avatarClassName} src={avatarUrl} />
-      </ListItemAvatar>
-      <Grid container direction="column">
+      <Grid container alignItems="center" wrap="nowrap">
         <Grid item>
-          <Typography variant="body2" noWrap>{name}</Typography>
+          <ListItemAvatar>
+            <Avatar className={avatarClassName} src={avatarUrl} />
+          </ListItemAvatar>
         </Grid>
-        <Grid item>
+        <Grid container direction="column" wrap="nowrap">
+          <Grid item zeroMinWidth>
+            <Typography variant="body2" noWrap>{name}</Typography>
+          </Grid>
           <Grid container justify="space-between" wrap="nowrap">
-            <Grid item>
+            <Grid item zeroMinWidth>
               <Typography variant="body2" color="textSecondary" noWrap>{gameText}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="body2" color="textSecondary">{viewersText}</Typography>
+              <Typography variant="body2" color="textSecondary" noWrap>{viewersText}</Typography>
             </Grid>
           </Grid>
         </Grid>
