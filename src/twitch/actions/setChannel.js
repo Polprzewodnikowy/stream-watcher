@@ -1,4 +1,5 @@
 import { buildActionCreator } from 'shared';
-import { TWITCH_SET_CHANNEL } from 'twitch/actionTypes';
+import { TWITCH_SET_CHANNEL, TWITCH_CLEAR_CHANNEL } from '../actionTypes';
 
-export default buildActionCreator(TWITCH_SET_CHANNEL, 'channel');
+export const setChannel = buildActionCreator(TWITCH_SET_CHANNEL, 'channel');
+export const clearChannel = buildActionCreator(TWITCH_CLEAR_CHANNEL);

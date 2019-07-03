@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { removeHashAndParametersFromUrl } from 'shared/utils';
-import { getTokenFromHash } from 'twitch/api';
+import { useEffect } from 'react';
 
 const TwitchLogic = ({
+  clearUrl,
   fetchInitialData,
+  getToken,
   refreshData,
   refreshInterval,
   saveToken,
 }) => {
   useEffect(() => {
-    const token = getTokenFromHash();
+    const token = getToken();
     if (token) {
       saveToken(token);
-      removeHashAndParametersFromUrl();
+      clearUrl();
     }
-  }, [saveToken]);
+  }, [getToken, saveToken, clearUrl]);
 
   useEffect(() => {
     fetchInitialData();
@@ -28,11 +28,13 @@ const TwitchLogic = ({
     };
   }, [refreshData, refreshInterval]);
 
-  return <div />;
+  return null;
 };
 
 TwitchLogic.propTypes = {
+  clearUrl: PropTypes.func.isRequired,
   fetchInitialData: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
   refreshData: PropTypes.func.isRequired,
   refreshInterval: PropTypes.number.isRequired,
   saveToken: PropTypes.func.isRequired,

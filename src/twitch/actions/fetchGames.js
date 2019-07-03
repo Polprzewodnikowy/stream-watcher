@@ -1,24 +1,24 @@
 import { buildActionCreator } from 'shared';
-import { getGames } from 'twitch/api';
-import { TWITCH_SAVE_GAMES } from 'twitch/actionTypes';
-import { transformGames } from 'twitch/transform';
+import { buildTwitchRequestActionCreator } from './common';
+import { TWITCH_GAMES_URL } from '../constants';
+import { TWITCH_FETCH_GAMES, TWITCH_CLEAR_GAMES } from '../actionTypes';
+import { transformGames, filterAndTransformGameIds } from '../transform';
 
-export const saveGames = buildActionCreator(TWITCH_SAVE_GAMES, 'games');
+export const clearGames = buildActionCreator(TWITCH_CLEAR_GAMES);
 
-const fetchGames = () => async (dispatch, getState) => {
-  const { twitch: { token, streams, games } } = getState();
+export const fetchGames = () => (dispatch, getState) => {
+  const { twitch: { streams, games } } = getState();
 
-  const ids = streams
-    .filter(({ gameId }) => !games.find(game => gameId === game.gameId))
-    .map(({ gameId }) => gameId);
+  const ids = filterAndTransformGameIds(streams, games);
 
-  if (ids.length > 0) {
-    return getGames(ids, token)
-      .then(transformGames)
-      .then(newGames => dispatch(saveGames(newGames)));
+  if (ids.length === 0) {
+    return null;
   }
 
-  return null;
+  return dispatch(buildTwitchRequestActionCreator({
+    baseAction: TWITCH_FETCH_GAMES,
+    url: TWITCH_GAMES_URL,
+    query: { id: ids, first: 100 },
+    transform: transformGames,
+  }));
 };
-
-export default fetchGames;

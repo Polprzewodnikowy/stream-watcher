@@ -1,11 +1,24 @@
+import { utils, createQueryParameters } from 'shared';
 import {
-  TWITCH_PLAYER_ID,
-  TWITCH_PLAYER_URL,
-  TWITCH_CHAT_URL,
   TWITCH_AUTHORIZATION_URL,
+  TWITCH_CHAT_URL,
+  TWITCH_PLAYER_URL,
+  TWITCH_PLAYER_ID,
   STREAM_LIVE,
   STREAM_RERUN,
 } from './constants';
+
+export const getTwitchClientID = () => process.env.REACT_APP_TWITCH_CLIENT_ID;
+
+export const getRedirectURL = () => `${new URL(window.location.href).origin}${utils.getPublicURL()}`;
+
+export const getAuthorizationUrl = () => `${TWITCH_AUTHORIZATION_URL}?${createQueryParameters({
+  client_id: getTwitchClientID(),
+  redirect_uri: getRedirectURL(),
+  response_type: 'token',
+})}`;
+
+export const getChatUrl = channel => TWITCH_CHAT_URL.replace('{{CHANNEL}}', channel);
 
 export const loadTwitchPlayer = () => new Promise((resolve) => {
   const scriptExists = Boolean(document.getElementById(TWITCH_PLAYER_ID));
@@ -20,14 +33,6 @@ export const loadTwitchPlayer = () => new Promise((resolve) => {
     resolve();
   }
 });
-
-export const getChatUrl = channel => TWITCH_CHAT_URL.replace('{{CHANNEL}}', channel);
-
-export const getAuthorizationUrl = (clientID, redirectUri) => TWITCH_AUTHORIZATION_URL
-  .replace('{{CLIENT_ID}}', clientID)
-  .replace('{{REDIRECT_URI}}', redirectUri);
-
-export const getTwitchClientID = () => process.env.REACT_APP_TWITCH_CLIENT_ID;
 
 export const isStreamLive = type => type === STREAM_LIVE;
 export const isStreamRerun = type => type === STREAM_RERUN;

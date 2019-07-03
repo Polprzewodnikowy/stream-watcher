@@ -1,4 +1,4 @@
 import { buildActionCreator } from 'shared';
-import { TWITCH_SET_REFRESH_INTERVAL } from 'twitch/actionTypes';
+import { TWITCH_SET_REFRESH_INTERVAL } from '../actionTypes';
 
-export default buildActionCreator(TWITCH_SET_REFRESH_INTERVAL, 'interval');
+export const setRefreshInterval = buildActionCreator(TWITCH_SET_REFRESH_INTERVAL, 'interval');

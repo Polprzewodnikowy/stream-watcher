@@ -6,12 +6,13 @@ import store from 'store';
 import theme from 'shared/theme';
 import { Layout } from 'shared';
 import { TwitchViewContainer } from 'twitch';
+import { ChannelListContainer } from 'shared/channelList';
 
 const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout>
+      <Layout sidebar={<ChannelListContainer />}>
         <TwitchViewContainer />
       </Layout>
     </ThemeProvider>
