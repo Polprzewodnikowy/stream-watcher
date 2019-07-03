@@ -1,18 +1,20 @@
-import { redirectToLoginPage } from 'twitch/api';
-import setChannel from './setChannel';
-import saveToken from './saveToken';
-import { saveUser } from './fetchUser';
-import { saveFollowed } from './fetchFollowed';
-import { saveStreams } from './fetchStreams';
+import { clearToken } from './saveToken';
+import { clearUser } from './fetchUsers';
+import { clearFollowed } from './fetchFollowed';
+import { clearStreams } from './fetchStreams';
+import { clearGames } from './fetchGames';
+import { clearChannel } from './setChannel';
+import { getAuthorizationUrl } from '../utils';
 
 export const twitchLogin = () => () => {
-  redirectToLoginPage();
+  window.location.replace(getAuthorizationUrl());
 };
 
 export const twitchLogout = () => (dispatch) => {
-  dispatch(setChannel(null));
-  dispatch(saveToken(null));
-  dispatch(saveUser({}));
-  dispatch(saveFollowed([]));
-  dispatch(saveStreams([]));
+  dispatch(clearToken());
+  dispatch(clearUser());
+  dispatch(clearFollowed());
+  dispatch(clearStreams());
+  dispatch(clearGames());
+  dispatch(clearChannel());
 };

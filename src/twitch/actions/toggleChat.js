@@ -1,5 +1,5 @@
 import { buildActionCreator } from 'shared';
-import { TWITCH_SET_SHOW_CHAT_STATE } from 'twitch/actionTypes';
+import { TWITCH_SET_SHOW_CHAT_STATE } from '../actionTypes';
 
 const appSetShowChatState = buildActionCreator(TWITCH_SET_SHOW_CHAT_STATE, 'state');
 

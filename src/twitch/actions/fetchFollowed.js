@@ -1,22 +1,26 @@
 import { buildActionCreator } from 'shared';
-import { getUsersFollows, getUsersById } from 'twitch/api';
-import { TWITCH_SAVE_FOLLOWED } from 'twitch/actionTypes';
-import { transformUsers, transformUsersFollows } from 'twitch/transform';
+import { buildTwitchRequestActionCreator } from './common';
+import { fetchUsers } from './fetchUsers';
+import { TWITCH_USERS_FOLLOWS_URL } from '../constants';
+import { TWITCH_FETCH_FOLLOWED, TWITCH_CLEAR_FOLLOWED } from '../actionTypes';
+import { transformUsersFollows } from '../transform';
 
-export const saveFollowed = buildActionCreator(TWITCH_SAVE_FOLLOWED, 'followed');
+export const clearFollowed = buildActionCreator(TWITCH_CLEAR_FOLLOWED);
 
-const fetchFollowed = () => async (dispatch, getState) => {
-  const { twitch: { token, user: { userId } } } = getState();
+export const fetchFollowed = () => (dispatch, getState) => {
+  const { twitch: { user: { userId } } } = getState();
 
-  if (userId) {
-    return getUsersFollows(userId, token)
-      .then(transformUsersFollows)
-      .then(follows => getUsersById(follows, token))
-      .then(transformUsers)
-      .then(followed => dispatch(saveFollowed(followed)));
+  if (!userId) {
+    return null;
   }
 
-  return null;
+  return dispatch(buildTwitchRequestActionCreator({
+    url: TWITCH_USERS_FOLLOWS_URL,
+    query: { from_id: userId, first: 100 },
+    transform: transformUsersFollows,
+  }))
+    .then(follows => dispatch(fetchUsers({
+      baseAction: TWITCH_FETCH_FOLLOWED,
+      query: { id: follows, first: 100 },
+    })));
 };
-
-export default fetchFollowed;

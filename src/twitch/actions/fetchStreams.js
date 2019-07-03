@@ -1,24 +1,26 @@
 import { buildActionCreator } from 'shared';
-import { getStreams } from 'twitch/api';
-import { TWITCH_SAVE_STREAMS } from 'twitch/actionTypes';
-import { transformStreams } from 'twitch/transform';
-import fetchGames from './fetchGames';
+import { buildTwitchRequestActionCreator } from './common';
+import { fetchGames } from './fetchGames';
+import { TWITCH_STREAMS_URL } from '../constants';
+import { TWITCH_FETCH_STREAMS, TWITCH_CLEAR_STREAMS } from '../actionTypes';
+import { transformStreams } from '../transform';
 
-export const saveStreams = buildActionCreator(TWITCH_SAVE_STREAMS, 'streams');
+export const clearStreams = buildActionCreator(TWITCH_CLEAR_STREAMS);
 
-const fetchStreams = () => async (dispatch, getState) => {
-  const { twitch: { token, followed } } = getState();
+export const fetchStreams = () => (dispatch, getState) => {
+  const { twitch: { followed } } = getState();
 
-  if (followed.length > 0) {
-    const ids = followed.map(({ userId }) => userId);
-
-    getStreams(ids, token)
-      .then(transformStreams)
-      .then(streams => dispatch(saveStreams(streams)))
-      .then(() => dispatch(fetchGames()));
+  if (followed.length <= 0) {
+    return null;
   }
 
-  return null;
-};
+  const ids = followed.map(({ userId }) => userId);
 
-export default fetchStreams;
+  return dispatch(buildTwitchRequestActionCreator({
+    baseAction: TWITCH_FETCH_STREAMS,
+    url: TWITCH_STREAMS_URL,
+    query: { user_id: ids, first: 100 },
+    transform: transformStreams,
+  }))
+    .then(() => dispatch(fetchGames()));
+};

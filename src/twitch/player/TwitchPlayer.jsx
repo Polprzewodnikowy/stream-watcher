@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { loadTwitchPlayer } from 'twitch/utils';
+import { loadTwitchPlayer } from '../utils';
 
 const useStyles = makeStyles({
   player: {

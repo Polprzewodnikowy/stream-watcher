@@ -35,10 +35,15 @@ const transformGame = ({
   name,
 });
 
-export const transformUsers = users => users.map(user => transformUser(user));
+export const transformUsers = ({ data }) => data.map(user => transformUser(user));
 
-export const transformUsersFollows = list => list.map(item => item.to_id);
+export const transformUsersFollows = ({ data }) => data.map(item => item.to_id);
 
-export const transformStreams = streams => streams.map(stream => transformStream(stream));
+export const transformStreams = ({ data }) => data.map(stream => transformStream(stream));
 
-export const transformGames = games => games.map(game => transformGame(game));
+export const transformGames = ({ data }) => data.map(game => transformGame(game));
+
+export const filterAndTransformGameIds = (streams, games) => streams
+  .filter(({ gameId }) => !games.find(game => gameId === game.gameId))
+  .filter(({ gameId }) => gameId !== 0)
+  .map(({ gameId }) => gameId);

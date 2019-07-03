@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { getChatUrl } from 'twitch/utils';
+import { getChatUrl } from '../utils';
 
 const useStyles = makeStyles({
   chat: {

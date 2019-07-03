@@ -15,3 +15,23 @@ export const loadFromLocalStorage = (key) => {
     return null;
   }
 };
+
+export const deleteInLocalStorage = key => window.localStorage.removeItem(key);
+
+export const isString = object => typeof object === 'string';
+export const isNumber = object => typeof object === 'number';
+export const isArray = object => Array.isArray(object);
+
+export const getPublicURL = () => process.env.PUBLIC_URL;
+
+export const getParamsFromHash = () => {
+  const { hash } = window.location;
+  if (hash.length) {
+    const parameters = hash.replace('#', '').split('&');
+    return parameters.reduce((prev, next) => {
+      const [key, value] = next.split('=');
+      return { ...prev, [key]: value };
+    }, {});
+  }
+  return {};
+};

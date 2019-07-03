@@ -5,7 +5,6 @@ import { HeaderContainer } from 'shared/header';
 import { TitleContainer } from 'shared/title';
 import { SidebarContainer } from 'shared/sidebar';
 import { HeaderButtons } from 'shared/header/buttons';
-import { ChannelListContainer } from 'shared/channelList';
 
 const useStyles = makeStyles({
   app: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Layout = ({ children }) => {
+const Layout = ({ children, sidebar }) => {
   const styles = useStyles();
 
   return (
@@ -27,7 +26,7 @@ const Layout = ({ children }) => {
       </HeaderContainer>
       {children}
       <SidebarContainer>
-        <ChannelListContainer />
+        {sidebar}
       </SidebarContainer>
     </div>
   );
@@ -35,10 +34,12 @@ const Layout = ({ children }) => {
 
 Layout.defaultProps = {
   children: null,
+  sidebar: null,
 };
 
 Layout.propTypes = {
   children: PropTypes.element,
+  sidebar: PropTypes.element,
 };
 
 export default Layout;
