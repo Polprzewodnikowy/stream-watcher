@@ -1,28 +1,4 @@
-import { utils } from 'shared';
-
-export const createQueryParameters = (query = {}) => (
-  Object
-    .keys(query)
-    .filter(key => (
-      utils.isString(query[key])
-      || utils.isNumber(query[key])
-      || utils.isArray(query[key])
-    ))
-    .map((key) => {
-      const value = query[key];
-
-      if (utils.isString(value) || utils.isNumber(value)) {
-        return `${key}=${value}`;
-      }
-
-      if (utils.isArray(value)) {
-        return value.map(i => `${key}=${i}`).join('&');
-      }
-
-      return null;
-    })
-    .join('&')
-);
+import { utils, messages } from 'shared';
 
 export const buildActionCreator = (type, ...argsNames) => (...args) => {
   const action = { type };
@@ -34,15 +10,6 @@ export const buildActionCreator = (type, ...argsNames) => (...args) => {
   return action;
 };
 
-const checkResponse = (response) => {
-  if (response.ok) {
-    return response.json();
-  }
-
-  return response.json()
-    .then(error => Promise.reject(error));
-};
-
 export const buildRequestActionCreator = options => (dispatch) => {
   const {
     baseAction,
@@ -50,6 +17,7 @@ export const buildRequestActionCreator = options => (dispatch) => {
     headers,
     query,
     transform,
+    transformError,
   } = options;
 
   const actions = {
@@ -62,15 +30,38 @@ export const buildRequestActionCreator = options => (dispatch) => {
 
   const fetchOptions = { headers };
 
-  const urlWithQueryParams = !query ? url : `${url}?${createQueryParameters(query)}`;
+  const urlWithQueryParams = !query ? url : `${url}?${utils.createQueryParameters(query)}`;
   const transformFunction = transform || (data => data);
+  const transformErrorFunction = transformError || (error => error);
+
+  const checkResponse = (response) => {
+    if (!response.ok) {
+      throw response;
+    }
+    return response.json();
+  };
+
+  const processData = (data) => {
+    actions.success(data);
+    return data;
+  };
+
+  const processErrors = (error) => {
+    if (error instanceof Error) {
+      actions.error({
+        errorType: messages.en.errors.fetchErrorType,
+        message: messages.en.errors.fetchErrorMessage(error.message, url),
+      });
+    } else {
+      error.json()
+        .then(transformErrorFunction)
+        .then(actions.error);
+    }
+  };
 
   return fetch(urlWithQueryParams, fetchOptions)
     .then(checkResponse)
     .then(transformFunction)
-    .then((data) => {
-      actions.success(data);
-      return data;
-    })
-    .catch(error => actions.error(error));
+    .then(processData)
+    .catch(processErrors);
 };

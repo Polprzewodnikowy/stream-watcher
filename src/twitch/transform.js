@@ -1,3 +1,5 @@
+import { messages } from 'shared';
+
 /* eslint-disable camelcase */
 const transformUser = ({
   id,
@@ -33,6 +35,16 @@ const transformGame = ({
 }) => ({
   gameId: Number(id),
   name,
+});
+
+export const transformError = ({
+  error,
+  status,
+  message,
+}) => ({
+  errorType: `${messages.en.twitch.error}: ${error}`,
+  status,
+  message,
 });
 
 export const transformUsers = ({ data }) => data.map(user => transformUser(user));

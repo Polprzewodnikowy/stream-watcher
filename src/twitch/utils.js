@@ -1,4 +1,4 @@
-import { utils, createQueryParameters } from 'shared';
+import { utils } from 'shared';
 import {
   TWITCH_AUTHORIZATION_URL,
   TWITCH_CHAT_URL,
@@ -12,7 +12,7 @@ export const getTwitchClientID = () => process.env.REACT_APP_TWITCH_CLIENT_ID;
 
 export const getRedirectURL = () => `${new URL(window.location.href).origin}${utils.getPublicURL()}`;
 
-export const getAuthorizationUrl = () => `${TWITCH_AUTHORIZATION_URL}?${createQueryParameters({
+export const getAuthorizationUrl = () => `${TWITCH_AUTHORIZATION_URL}?${utils.createQueryParameters({
   client_id: getTwitchClientID(),
   redirect_uri: getRedirectURL(),
   response_type: 'token',

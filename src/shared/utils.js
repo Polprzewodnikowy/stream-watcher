@@ -35,3 +35,27 @@ export const getParamsFromHash = () => {
   }
   return {};
 };
+
+export const createQueryParameters = (query = {}) => (
+  Object
+    .keys(query)
+    .filter(key => (
+      isString(query[key])
+      || isNumber(query[key])
+      || isArray(query[key])
+    ))
+    .map((key) => {
+      const value = query[key];
+
+      if (isString(value) || isNumber(value)) {
+        return `${key}=${value}`;
+      }
+
+      if (isArray(value)) {
+        return value.map(i => `${key}=${i}`).join('&');
+      }
+
+      return null;
+    })
+    .join('&')
+);
