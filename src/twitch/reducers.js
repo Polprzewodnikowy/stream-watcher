@@ -4,13 +4,18 @@ import {
   TWITCH_SAVE_TOKEN,
   TWITCH_CLEAR_TOKEN,
   TWITCH_FETCH_USER_SUCCESS,
+  TWITCH_FETCH_USER_ERROR,
   TWITCH_CLEAR_USER,
   TWITCH_FETCH_FOLLOWED_SUCCESS,
+  TWITCH_FETCH_FOLLOWED_ERROR,
   TWITCH_CLEAR_FOLLOWED,
   TWITCH_FETCH_STREAMS_SUCCESS,
+  TWITCH_FETCH_STREAMS_ERROR,
   TWITCH_CLEAR_STREAMS,
   TWITCH_FETCH_GAMES_SUCCESS,
+  TWITCH_FETCH_GAMES_ERROR,
   TWITCH_CLEAR_GAMES,
+  TWITCH_CLEAR_ERRORS,
   TWITCH_SET_CHANNEL,
   TWITCH_CLEAR_CHANNEL,
   TWITCH_SET_SHOW_CHAT_STATE,
@@ -110,6 +115,23 @@ const refreshInterval = (state = loadFromLocalStorage('refreshInterval') || DEFA
   }
 };
 
+const errors = (state = {}, action) => {
+  switch (action.type) {
+    case TWITCH_FETCH_USER_ERROR:
+      return { ...state, user: action.error };
+    case TWITCH_FETCH_FOLLOWED_ERROR:
+      return { ...state, followed: action.error };
+    case TWITCH_FETCH_STREAMS_ERROR:
+      return { ...state, streams: action.error };
+    case TWITCH_FETCH_GAMES_ERROR:
+      return { ...state, games: action.error };
+    case TWITCH_CLEAR_ERRORS:
+      return {};
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   token,
   user,
@@ -119,4 +141,5 @@ export default combineReducers({
   channel,
   showChat,
   refreshInterval,
+  errors,
 });

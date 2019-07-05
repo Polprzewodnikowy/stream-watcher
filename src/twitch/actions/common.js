@@ -1,4 +1,5 @@
-import { buildRequestActionCreator } from 'shared';
+import { buildActionCreator, buildRequestActionCreator } from 'shared';
+import { TWITCH_CLEAR_ERRORS } from '../actionTypes';
 import { getTwitchClientID } from '../utils';
 
 export const buildTwitchRequestActionCreator = options => (dispatch, getState) => {
@@ -24,3 +25,5 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
     headers: twitchHeaders,
   }));
 };
+
+export const clearErrors = buildActionCreator(TWITCH_CLEAR_ERRORS);

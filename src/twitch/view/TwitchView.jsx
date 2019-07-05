@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { TwitchLogicContainer } from 'twitch';
 import TwitchPlayerContainer from 'twitch/player/TwitchPlayerContainer';
 import TwitchChatContainer from 'twitch/chat/TwitchChatContainer';
+import ErrorModalContainer from 'twitch/ErrorModal';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -65,6 +66,7 @@ const TwitchView = ({ showTwitch, showChat }) => {
         null
       )}
       <TwitchLogicContainer />
+      <ErrorModalContainer />
     </>
   );
 };
