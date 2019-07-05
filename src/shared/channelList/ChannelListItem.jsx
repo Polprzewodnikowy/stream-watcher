@@ -39,7 +39,7 @@ const ChannelListItem = ({
   const styles = useStyles();
   const avatarClassName = !isStreamLiveOrRerun(type) ? styles.dimAvatar : '';
   const gameText = isStreamLiveOrRerun(type) && gameTitle;
-  const viewersText = isStreamLiveOrRerun(type) && viewers > 0 && ` ${getIcon(type)} ${viewers}`;
+  const viewersText = isStreamLiveOrRerun(type) && viewers >= 0 && ` ${getIcon(type)} ${viewers}`;
 
   return (
     <ListItem

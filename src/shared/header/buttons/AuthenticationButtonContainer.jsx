@@ -37,9 +37,9 @@ AuthenticationButton.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ twitch: { token, user: { avatarUrl } } }) => ({
+const mapStateToProps = ({ twitch: { user: { userId, avatarUrl } } }) => ({
   avatarUrl,
-  isLoggedIn: Boolean(token),
+  isLoggedIn: Boolean(userId),
 });
 
 const mapDispatchToProps = dispatch => ({

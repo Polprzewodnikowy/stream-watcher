@@ -8,7 +8,10 @@ const mapStateToProps = ({ twitch: { refreshInterval } }) => ({ refreshInterval 
 const mapDispatchToProps = dispatch => ({
   clearUrl: () => utils.removeHashAndParametersFromUrl(),
   fetchInitialData: () => dispatch(fetchAll()),
-  getToken: () => utils.getParamsFromHash().access_token,
+  getToken: () => {
+    const parameters = utils.getParamsFromHash();
+    return parameters.access_token;
+  },
   refreshData: () => dispatch(fetchStreams()),
   saveToken: token => dispatch(saveToken(token)),
 });

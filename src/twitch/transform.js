@@ -5,7 +5,7 @@ const transformUser = ({
   display_name,
   profile_image_url,
 }) => ({
-  userId: id,
+  userId: Number(id),
   login,
   name: display_name,
   avatarUrl: profile_image_url,
@@ -19,19 +19,19 @@ const transformStream = ({
   user_name,
   viewer_count,
 }) => ({
-  userId: user_id,
+  userId: Number(user_id),
   name: user_name,
   title,
   type,
-  gameId: game_id,
-  viewers: viewer_count,
+  gameId: Number(game_id),
+  viewers: Number(viewer_count),
 });
 
 const transformGame = ({
   id,
   name,
 }) => ({
-  gameId: id,
+  gameId: Number(id),
   name,
 });
 
