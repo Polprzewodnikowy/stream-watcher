@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { TwitchLogicContainer } from 'twitch';
-import TwitchPlayerContainer from 'twitch/player/TwitchPlayerContainer';
-import TwitchChatContainer from 'twitch/chat/TwitchChatContainer';
-import ErrorModalContainer from 'twitch/ErrorModal';
+import TwitchPlayerContainer from '../player/TwitchPlayerContainer';
+import TwitchChatContainer from '../chat/TwitchChatContainer';
+import TwitchLogicContainer from '../logic/TwitchLogicContainer';
+import ErrorModalContainer from '../errors/ErrorModalContainer';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {

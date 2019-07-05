@@ -1,6 +1,7 @@
 import { buildActionCreator, buildRequestActionCreator } from 'shared';
-import { TWITCH_CLEAR_ERRORS } from '../actionTypes';
 import { getTwitchClientID } from '../utils';
+import { TWITCH_CLEAR_ERRORS } from '../actionTypes';
+import { transformError } from '../transform';
 
 export const buildTwitchRequestActionCreator = options => (dispatch, getState) => {
   const { twitch: { token } } = getState();
@@ -23,6 +24,7 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
   return dispatch(buildRequestActionCreator({
     ...optionParams,
     headers: twitchHeaders,
+    transformError,
   }));
 };
 
