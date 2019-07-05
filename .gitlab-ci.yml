@@ -1,12 +1,14 @@
 stages:
+  - test
   - deploy
+
+image: node:latest
+cache:
+  paths:
+    - node_modules
 
 pages:
   stage: deploy
-  image: node:latest
-  cache:
-    paths:
-      - node_modules
   script:
     - npm install
     - npm run build
@@ -18,3 +20,11 @@ pages:
       - public
   only:
     - master
+
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run build
+  only:
+    - merge_requests
