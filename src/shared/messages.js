@@ -12,6 +12,10 @@ const messages = {
         closeStream: 'Close stream',
       },
     },
+    errors: {
+      unknownError: 'Unknown Error',
+      closeModal: 'Close',
+    },
   },
 };
 
