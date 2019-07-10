@@ -59,3 +59,31 @@ export const createQueryParameters = (query = {}) => (
     })
     .join('&')
 );
+
+export const chunkArray = (array, size) => {
+  const outputArray = [];
+  while (array.length) {
+    outputArray.push(array.splice(0, size));
+  }
+  return outputArray;
+};
+
+export const mergeBy = (sourceArray, ...options) => {
+  if (options.length <= 1) {
+    return sourceArray;
+  }
+
+  const identifier = options.pop();
+
+  return sourceArray.map(arrayItem => ({
+    ...arrayItem,
+    ...options.reduce((result, next) => ({
+      ...result,
+      ...next.find(({ [identifier]: searchId }) => searchId === arrayItem[identifier]),
+    }), {}),
+  }));
+};
+
+export const sortDescBy = (sourceArray, id) => sourceArray.sort((a, b) => (
+  (b[id] || -1) - (a[id] || -1)
+));

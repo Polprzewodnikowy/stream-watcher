@@ -1,7 +1,10 @@
-import TwitchLogicContainer from './logic/TwitchLogicContainer';
-import TwitchViewContainer from './view/TwitchViewContainer';
+import * as twitchActions from './actions';
+import * as twitchUtils from './utils';
+import { TwitchView, TwitchViewContainer } from './view';
 
 export {
-  TwitchLogicContainer,
+  twitchActions,
+  twitchUtils,
+  TwitchView,
   TwitchViewContainer,
 };

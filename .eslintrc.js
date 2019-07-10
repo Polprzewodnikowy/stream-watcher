@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'react-app',
   ],
   globals: {
     Atomics: 'readonly',
@@ -25,13 +26,12 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/prefer-default-export': false,
-    'import/no-cycle': false,
   },
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src']
-      }
-    }
+        paths: ['src'],
+      },
+    },
   },
 };

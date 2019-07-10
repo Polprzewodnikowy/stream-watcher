@@ -7,9 +7,9 @@ import { transformGames, filterAndTransformGameIds } from '../transform';
 export const clearGames = buildActionCreator(TWITCH_CLEAR_GAMES);
 
 export const fetchGames = () => (dispatch, getState) => {
-  const { twitch: { streams, games } } = getState();
+  const { twitch: { streams: { list }, games } } = getState();
 
-  const ids = filterAndTransformGameIds(streams, games);
+  const ids = filterAndTransformGameIds(list, games);
 
   if (ids.length === 0) {
     return null;

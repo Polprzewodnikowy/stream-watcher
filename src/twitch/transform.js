@@ -18,11 +18,9 @@ const transformStream = ({
   title,
   type,
   user_id,
-  user_name,
   viewer_count,
 }) => ({
   userId: Number(user_id),
-  name: user_name,
   title,
   type,
   gameId: Number(game_id),
@@ -34,7 +32,7 @@ const transformGame = ({
   name,
 }) => ({
   gameId: Number(id),
-  name,
+  gameTitle: name,
 });
 
 export const transformError = ({
@@ -43,17 +41,14 @@ export const transformError = ({
   message,
 }) => ({
   errorType: `${messages.en.twitch.error}: ${error}`,
-  status,
+  status: Number(status),
   message,
 });
 
-export const transformUsers = ({ data }) => data.map(user => transformUser(user));
-
-export const transformUsersFollows = ({ data }) => data.map(item => item.to_id);
-
-export const transformStreams = ({ data }) => data.map(stream => transformStream(stream));
-
-export const transformGames = ({ data }) => data.map(game => transformGame(game));
+export const transformUsers = data => data.map(user => transformUser(user));
+export const transformUsersFollows = data => data.map(item => Number(item.to_id));
+export const transformStreams = data => data.map(stream => transformStream(stream));
+export const transformGames = data => data.map(game => transformGame(game));
 
 export const filterAndTransformGameIds = (streams, games) => streams
   .filter(({ gameId }) => !games.find(game => gameId === game.gameId))

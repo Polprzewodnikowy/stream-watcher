@@ -8,6 +8,7 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
 
   const {
     headers,
+    transform,
     ...optionParams
   } = options;
 
@@ -21,9 +22,12 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
 
   Object.assign(twitchHeaders, headers);
 
+  const transformFunction = ({ data, ...other }) => ({ data: transform(data), ...other });
+
   return dispatch(buildRequestActionCreator({
     ...optionParams,
     headers: twitchHeaders,
+    transform: transformFunction,
     transformError,
   }));
 };

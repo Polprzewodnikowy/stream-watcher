@@ -11,4 +11,6 @@ const getStore = () => {
   return null;
 };
 
-export default getStore();
+const store = getStore();
+
+export default store;

@@ -1,4 +1,5 @@
-import { utils, messages } from 'shared';
+import * as utils from '../utils';
+import messages from '../messages';
 
 export const buildActionCreator = (type, ...argsNames) => (...args) => {
   const action = { type };

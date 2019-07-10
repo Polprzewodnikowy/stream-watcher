@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { utils } from 'shared';
 
 export const getToken = twitch => twitch.token;
 
@@ -30,7 +31,7 @@ export const getStreamTitle = createSelector(
   [
     twitch => twitch.channel,
     twitch => twitch.followed,
-    twitch => twitch.streams,
+    twitch => twitch.streams.list,
   ],
   (channel, followed, streams) => {
     const foundChannel = followed.find(user => user.login === channel);
@@ -47,22 +48,12 @@ export const getStreamTitle = createSelector(
 export const getChannelList = createSelector(
   [
     twitch => twitch.followed,
-    twitch => twitch.streams,
+    twitch => twitch.streams.list,
     twitch => twitch.games,
   ],
-  (followed, streams, games) => {
-    const streamsWithGameTitle = streams.map((stream) => {
-      const game = games.find(({ gameId }) => stream.gameId === gameId);
-      const gameTitle = game && game.name;
-      return { ...stream, gameTitle };
-    });
-
-    return followed
-      .map(user => ({
-        viewers: -1,
-        ...user,
-        ...streamsWithGameTitle.find(({ userId }) => user.userId === userId),
-      }))
-      .sort((a, b) => b.viewers - a.viewers);
+  (followedList, streamsList, gamesList) => {
+    const streams = utils.mergeBy(streamsList, gamesList, 'gameId');
+    const channels = utils.mergeBy(followedList, streams, 'userId');
+    return utils.sortDescBy(channels, 'viewers');
   },
 );

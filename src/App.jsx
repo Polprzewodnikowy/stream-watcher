@@ -3,16 +3,15 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 import store from 'store';
-import theme from 'shared/theme';
-import { Layout } from 'shared';
+import { theme } from 'theme';
+import { Layout } from 'layout';
 import { TwitchViewContainer } from 'twitch';
-import { ChannelListContainer } from 'shared/channelList';
 
 const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout sidebar={<ChannelListContainer />}>
+      <Layout>
         <TwitchViewContainer />
       </Layout>
     </ThemeProvider>
