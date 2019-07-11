@@ -1,59 +1,47 @@
 import { createSelector } from 'reselect';
 import { utils } from 'shared';
 
-export const getToken = twitch => twitch.token;
-
 export const getChannel = twitch => twitch.channel;
+export const getFollowed = twitch => twitch.followed;
+export const getStreams = twitch => twitch.streams.list;
+export const getGames = twitch => twitch.games;
+
+export const getSelectedChannel = createSelector(
+  getChannel,
+  getFollowed,
+  (channel, followed) => followed.find(({ login }) => login === channel) || {},
+);
+
+export const getSelectedStream = createSelector(
+  getSelectedChannel,
+  getStreams,
+  (selectedChannel, streams) => streams
+    .find(({ userId }) => userId === selectedChannel.userId) || {},
+);
 
 export const getChannelAvatarUrl = createSelector(
-  [
-    twitch => twitch.channel,
-    twitch => twitch.followed,
-  ],
-  (channel, followed) => {
-    const foundChannel = followed.find(user => user.login === channel);
-    return foundChannel && foundChannel.avatarUrl;
-  },
+  getSelectedChannel,
+  selectedChannel => selectedChannel.avatarUrl,
 );
 
 export const getChannelName = createSelector(
-  [
-    twitch => twitch.channel,
-    twitch => twitch.followed,
-  ],
-  (channel, followed) => {
-    const foundChannel = followed.find(user => user.login === channel);
-    return foundChannel && foundChannel.name;
-  },
+  getSelectedChannel,
+  selectedChannel => selectedChannel.name,
 );
 
 export const getStreamTitle = createSelector(
-  [
-    twitch => twitch.channel,
-    twitch => twitch.followed,
-    twitch => twitch.streams.list,
-  ],
-  (channel, followed, streams) => {
-    const foundChannel = followed.find(user => user.login === channel);
+  getSelectedStream,
+  selectedStream => selectedStream.title,
+);
 
-    if (foundChannel) {
-      const foundStream = streams.find(stream => stream.userId === foundChannel.userId);
-      return foundStream && foundStream.title;
-    }
-
-    return null;
-  },
+export const getStreamsWithGames = createSelector(
+  getStreams,
+  getGames,
+  (streams, games) => utils.mergeBy(streams, games, 'gameId'),
 );
 
 export const getChannelList = createSelector(
-  [
-    twitch => twitch.followed,
-    twitch => twitch.streams.list,
-    twitch => twitch.games,
-  ],
-  (followedList, streamsList, gamesList) => {
-    const streams = utils.mergeBy(streamsList, gamesList, 'gameId');
-    const channels = utils.mergeBy(followedList, streams, 'userId');
-    return utils.sortDescBy(channels, 'viewers');
-  },
+  getFollowed,
+  getStreamsWithGames,
+  (followed, streams) => utils.sortDescBy(utils.mergeBy(followed, streams, 'userId'), 'viewers'),
 );

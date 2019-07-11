@@ -33,6 +33,7 @@ const ChannelListItem = ({
   login,
   name,
   changeChannel,
+  title,
   type,
   viewers,
 }) => {
@@ -47,7 +48,7 @@ const ChannelListItem = ({
       selected={isSelected}
       onClick={() => changeChannel(login)}
     >
-      <Grid container alignItems="center" wrap="nowrap">
+      <Grid container alignItems="center" wrap="nowrap" title={title}>
         <Grid item>
           <ListItemAvatar>
             <Avatar className={avatarClassName} src={avatarUrl} />
@@ -75,6 +76,7 @@ ChannelListItem.defaultProps = {
   changeChannel: () => {},
   gameTitle: '',
   isSelected: false,
+  title: null,
   type: '',
   viewers: null,
 };
@@ -86,6 +88,7 @@ ChannelListItem.propTypes = {
   login: PropTypes.string.isRequired,
   isSelected: PropTypes.bool,
   name: PropTypes.string.isRequired,
+  title: PropTypes.string,
   type: PropTypes.string,
   viewers: PropTypes.number,
 };
