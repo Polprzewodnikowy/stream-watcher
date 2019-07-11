@@ -1,16 +1,9 @@
-import devStore from './store.dev';
-import prodStore from './store.prod';
+import { rootReducer, persistenceConfiguration } from 'rootReducer';
+import { getInitialState, enableStatePersistence } from './persistence';
+import configureStore from './configureStore';
 
-const getStore = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return devStore;
-  }
-  if (process.env.NODE_ENV === 'production') {
-    return prodStore;
-  }
-  return null;
-};
-
-const store = getStore();
+const initialState = getInitialState();
+const store = configureStore(rootReducer, initialState);
+enableStatePersistence(store, persistenceConfiguration);
 
 export default store;

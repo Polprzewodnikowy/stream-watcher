@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import sidebar from 'sidebar/reducers';
 import twitch from 'twitch/reducers';
+import sidebar from 'sidebar/reducers';
 
 export default combineReducers({
-  sidebar,
   twitch,
+  sidebar,
 });
