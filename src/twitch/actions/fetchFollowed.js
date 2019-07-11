@@ -1,4 +1,5 @@
-import { buildActionCreator, utils } from 'shared';
+import { chunk } from 'lodash';
+import { buildActionCreator } from 'shared';
 import { buildTwitchRequestActionCreator } from './common';
 import { fetchUsers } from './fetchUsers';
 import { TWITCH_USERS_FOLLOWS_URL } from '../constants';
@@ -36,11 +37,11 @@ export const fetchFollowedUsers = () => (dispatch, getState) => {
   const { twitch: { followedIds: { list }, followed } } = getState();
 
   const filteredList = list.filter(id => !followed.find(({ userId }) => userId === id));
-  const chunks = utils.chunkArray(filteredList, 100);
+  const chunks = chunk(filteredList, 100);
 
-  return Promise.all(chunks.map(chunk => dispatch(fetchUsers({
+  return Promise.all(chunks.map(idChunk => dispatch(fetchUsers({
     baseAction: TWITCH_FETCH_FOLLOWED_USERS,
-    query: { id: chunk },
+    query: { id: idChunk },
   }))));
 };
 

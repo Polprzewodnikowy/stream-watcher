@@ -60,14 +60,6 @@ export const createQueryParameters = (query = {}) => (
     .join('&')
 );
 
-export const chunkArray = (array, size) => {
-  const outputArray = [];
-  while (array.length) {
-    outputArray.push(array.splice(0, size));
-  }
-  return outputArray;
-};
-
 export const mergeBy = (sourceArray, ...options) => {
   if (options.length <= 1) {
     return sourceArray;
@@ -84,6 +76,8 @@ export const mergeBy = (sourceArray, ...options) => {
   }));
 };
 
-export const sortDescBy = (sourceArray, id) => sourceArray.sort((a, b) => (
-  (b[id] || -1) - (a[id] || -1)
-));
+const getDefaultValue = value => ((value && value !== 0) ? value : -1);
+const sortBy = (array, id, dir) => array
+  .sort((a, b) => getDefaultValue(dir ? a[id] : b[id]) - getDefaultValue(!dir ? a[id] : b[id]));
+export const sortAscBy = (array, id) => sortBy(array, id, true);
+export const sortDescBy = (array, id) => sortBy(array, id, false);
