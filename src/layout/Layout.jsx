@@ -6,6 +6,7 @@ import { TitleContainer } from 'title';
 import { HeaderButtons } from 'headerButtons';
 import { SidebarContainer } from 'sidebar';
 import { ChannelListContainer } from 'channelList';
+import { LoaderContainer } from 'loader';
 
 const useStyles = makeStyles({
   app: {
@@ -32,6 +33,7 @@ const Layout = ({ children }) => {
         </HeaderContainer>
         <ChannelListContainer />
       </SidebarContainer>
+      <LoaderContainer />
     </div>
   );
 };

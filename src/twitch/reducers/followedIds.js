@@ -1,6 +1,12 @@
 import { uniq } from 'lodash';
 import { combineReducers } from 'redux';
-import { TWITCH_FETCH_FOLLOWED_IDS_SUCCESS, TWITCH_CLEAR_FOLLOWED_IDS } from '../actionTypes';
+import { buildActionReducers } from 'shared';
+import {
+  TWITCH_FETCH_FOLLOWED_IDS,
+  TWITCH_FETCH_FOLLOWED_IDS_SUCCESS,
+  TWITCH_FETCH_FOLLOWED_IDS_ERROR,
+  TWITCH_CLEAR_FOLLOWED_IDS,
+} from '../actionTypes';
 
 const list = (state = [], { type, payload }) => {
   switch (type) {
@@ -35,8 +41,26 @@ const cursor = (state = null, { type, payload }) => {
   }
 };
 
-export default combineReducers({
+const [
+  isFetchingFollowedIds,
+  fetchedFollowedIdsSuccessfully,
+  fetchedFollowedIdsInitial,
+] = buildActionReducers({
+  start: TWITCH_FETCH_FOLLOWED_IDS,
+  success: TWITCH_FETCH_FOLLOWED_IDS_SUCCESS,
+  error: TWITCH_FETCH_FOLLOWED_IDS_ERROR,
+  clear: TWITCH_CLEAR_FOLLOWED_IDS,
+});
+
+const followedIds = combineReducers({
   list,
   total,
   cursor,
 });
+
+export {
+  followedIds,
+  isFetchingFollowedIds,
+  fetchedFollowedIdsSuccessfully,
+  fetchedFollowedIdsInitial,
+};

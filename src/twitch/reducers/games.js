@@ -1,5 +1,11 @@
 import { uniqBy } from 'lodash';
-import { TWITCH_FETCH_GAMES_SUCCESS, TWITCH_CLEAR_GAMES } from '../actionTypes';
+import { buildActionReducers } from 'shared';
+import {
+  TWITCH_FETCH_GAMES,
+  TWITCH_FETCH_GAMES_SUCCESS,
+  TWITCH_FETCH_GAMES_ERROR,
+  TWITCH_CLEAR_GAMES,
+} from '../actionTypes';
 
 const games = (state = [], { type, payload }) => {
   switch (type) {
@@ -12,4 +18,20 @@ const games = (state = [], { type, payload }) => {
   }
 };
 
-export default games;
+const [
+  isFetchingGames,
+  fetchedGamesSuccessfully,
+  fetchedGamesInitial,
+] = buildActionReducers({
+  start: TWITCH_FETCH_GAMES,
+  success: TWITCH_FETCH_GAMES_SUCCESS,
+  error: TWITCH_FETCH_GAMES_ERROR,
+  clear: TWITCH_CLEAR_GAMES,
+});
+
+export {
+  games,
+  isFetchingGames,
+  fetchedGamesSuccessfully,
+  fetchedGamesInitial,
+};

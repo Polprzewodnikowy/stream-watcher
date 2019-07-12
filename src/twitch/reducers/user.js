@@ -1,4 +1,10 @@
-import { TWITCH_FETCH_USER_SUCCESS, TWITCH_CLEAR_USER } from '../actionTypes';
+import { buildActionReducers } from 'shared';
+import {
+  TWITCH_FETCH_USER,
+  TWITCH_FETCH_USER_SUCCESS,
+  TWITCH_FETCH_USER_ERROR,
+  TWITCH_CLEAR_USER,
+} from '../actionTypes';
 
 const user = (state = {}, { type, payload }) => {
   switch (type) {
@@ -11,4 +17,20 @@ const user = (state = {}, { type, payload }) => {
   }
 };
 
-export default user;
+const [
+  isFetchingUser,
+  fetchedUserSuccessfully,
+  fetchedUserInitial,
+] = buildActionReducers({
+  start: TWITCH_FETCH_USER,
+  success: TWITCH_FETCH_USER_SUCCESS,
+  error: TWITCH_FETCH_USER_ERROR,
+  clear: TWITCH_CLEAR_USER,
+});
+
+export {
+  user,
+  isFetchingUser,
+  fetchedUserSuccessfully,
+  fetchedUserInitial,
+};

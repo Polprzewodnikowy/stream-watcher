@@ -45,3 +45,20 @@ export const getChannelList = createSelector(
   getStreamsWithGames,
   (followed, streams) => utils.sortDescBy(utils.mergeBy(followed, streams, 'userId'), 'viewers'),
 );
+
+export const isInitialLoading = ({
+  token,
+  fetchedUserInitial,
+  fetchedFollowedIdsInitial,
+  fetchedFollowedInitial,
+  fetchedStreamsInitial,
+  fetchedGamesInitial,
+}) => (
+  token && !(
+    fetchedUserInitial
+    && fetchedFollowedIdsInitial
+    && fetchedFollowedInitial
+    && fetchedStreamsInitial
+    && fetchedGamesInitial
+  )
+);

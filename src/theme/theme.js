@@ -22,6 +22,9 @@ const theme = createMuiTheme({
       secondary: '#aaaaaa',
     },
   },
+  zIndex: {
+    progress: 2000,
+  },
 });
 
 export default theme;
