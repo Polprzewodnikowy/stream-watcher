@@ -5,7 +5,7 @@ import { TWITCH_FETCH_FOLLOWED_IDS_SUCCESS, TWITCH_CLEAR_FOLLOWED_IDS } from '..
 const list = (state = [], { type, payload }) => {
   switch (type) {
     case TWITCH_FETCH_FOLLOWED_IDS_SUCCESS:
-      return uniq([...payload.data, ...state]);
+      return uniq([...state, ...payload.data]);
     case TWITCH_CLEAR_FOLLOWED_IDS:
       return [];
     default:

@@ -4,7 +4,7 @@ import { TWITCH_FETCH_GAMES_SUCCESS, TWITCH_CLEAR_GAMES } from '../actionTypes';
 const games = (state = [], { type, payload }) => {
   switch (type) {
     case TWITCH_FETCH_GAMES_SUCCESS:
-      return uniqBy([...payload.data, ...state], 'gameId');
+      return uniqBy([...state, ...payload.data], 'gameId');
     case TWITCH_CLEAR_GAMES:
       return [];
     default:
