@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { SIDEBAR_SET_STATE } from './actionTypes';
 
-const isOpen = (state = false, action) => {
-  switch (action.type) {
+const isOpen = (state = false, { type, open }) => {
+  switch (type) {
     case SIDEBAR_SET_STATE:
-      return action.state;
+      return open;
     default:
       return state;
   }

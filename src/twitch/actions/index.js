@@ -4,7 +4,7 @@ import { fetchUser, clearUser, fetchUsers } from './fetchUsers';
 import { fetchFollowed, clearFollowed } from './fetchFollowed';
 import { fetchStreams, clearStreams } from './fetchStreams';
 import { fetchGames, clearGames } from './fetchGames';
-import { fetchAll } from './fetchAll';
+import { fetchAll, clearAll } from './fetchAll';
 import { clearErrors } from './common';
 import { setRefreshInterval } from './setRefreshInterval';
 import { setChannel, clearChannel } from './setChannel';
@@ -25,6 +25,7 @@ export {
   fetchGames,
   clearGames,
   fetchAll,
+  clearAll,
   clearErrors,
   setRefreshInterval,
   setChannel,

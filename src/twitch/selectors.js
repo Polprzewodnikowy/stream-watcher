@@ -3,7 +3,7 @@ import { utils } from 'shared';
 
 export const getChannel = twitch => twitch.channel;
 export const getFollowed = twitch => twitch.followed;
-export const getStreams = twitch => twitch.streams.list;
+export const getStreams = twitch => twitch.streams;
 export const getGames = twitch => twitch.games;
 
 export const getSelectedChannel = createSelector(

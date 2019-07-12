@@ -16,23 +16,33 @@ export const buildRequestActionCreator = options => (dispatch) => {
     baseAction,
     url,
     headers,
+    method,
     query,
     transform,
+    combine,
     transformError,
   } = options;
 
   const actions = {
-    start: () => baseAction && dispatch(buildActionCreator(baseAction, 'value')),
+    start: () => baseAction && dispatch(buildActionCreator(baseAction)()),
     success: payload => baseAction && dispatch(buildActionCreator(`${baseAction}_SUCCESS`, 'payload')(payload)),
     error: error => baseAction && dispatch(buildActionCreator(`${baseAction}_ERROR`, 'error')(error)),
   };
 
   actions.start();
 
-  const fetchOptions = { headers };
+  const fetchOptions = { headers, method };
 
-  const urlWithQueryParams = !query ? url : `${url}?${utils.createQueryParameters(query)}`;
+  const isParallelQuery = utils.isArray(query);
+  const urlWithQueryParams = (
+    query && (
+      isParallelQuery ? query.map(q => utils.createUrl(url, q)) : utils.createUrl(url, query)
+    )
+  ) || (
+    url
+  );
   const transformFunction = transform || (data => data);
+  const combineFunction = (isParallelQuery && combine) || (data => data);
   const transformErrorFunction = transformError || (error => error);
 
   const checkResponse = (response) => {
@@ -60,9 +70,16 @@ export const buildRequestActionCreator = options => (dispatch) => {
     }
   };
 
-  return fetch(urlWithQueryParams, fetchOptions)
+  const fetchAction = fetchUrl => fetch(fetchUrl, fetchOptions)
     .then(checkResponse)
     .then(transformFunction)
-    .then(processData)
     .catch(processErrors);
+
+  return (
+    isParallelQuery
+      ? Promise.all(urlWithQueryParams.map(fetchUrl => fetchAction(fetchUrl)))
+      : fetchAction(urlWithQueryParams)
+  )
+    .then(combineFunction)
+    .then(processData);
 };

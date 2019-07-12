@@ -1,9 +1,9 @@
 import { TWITCH_SET_SHOW_CHAT_STATE } from '../actionTypes';
 
-const showChat = (state = true, action) => {
-  switch (action.type) {
+const showChat = (state = true, { type, show }) => {
+  switch (type) {
     case TWITCH_SET_SHOW_CHAT_STATE:
-      return action.state;
+      return show;
     default:
       return state;
   }

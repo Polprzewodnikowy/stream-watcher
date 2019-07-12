@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { twitchTypes } from 'twitch';
 import { ChannelListItemContainer } from './item';
 
 const useStyles = makeStyles({
@@ -33,14 +34,7 @@ ChannelList.defaultProps = {
 };
 
 ChannelList.propTypes = {
-  channels: PropTypes.arrayOf(PropTypes.shape({
-    avatarUrl: PropTypes.string.isRequired,
-    gameTitle: PropTypes.string,
-    login: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    viewers: PropTypes.number,
-  })).isRequired,
+  channels: PropTypes.arrayOf(PropTypes.shape(twitchTypes.channel)).isRequired,
   selectedChannel: PropTypes.string,
 };
 

@@ -10,6 +10,7 @@ const messages = {
         showChat: 'Show chat',
         hideChat: 'Hide chat',
         closeStream: 'Close stream',
+        refreshData: 'Refresh data',
       },
     },
     errors: {

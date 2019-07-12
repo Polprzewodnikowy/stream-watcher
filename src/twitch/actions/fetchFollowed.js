@@ -36,13 +36,16 @@ export const fetchFollowedIds = () => (dispatch, getState) => {
 export const fetchFollowedUsers = () => (dispatch, getState) => {
   const { twitch: { followedIds: { list }, followed } } = getState();
 
-  const filteredList = list.filter(id => !followed.find(({ userId }) => userId === id));
-  const chunks = chunk(filteredList, 100);
+  const filteredUsers = list.filter(id => !followed.find(({ userId }) => userId === id));
 
-  return Promise.all(chunks.map(idChunk => dispatch(fetchUsers({
+  if (filteredUsers.length === 0) {
+    return null;
+  }
+
+  return dispatch(fetchUsers({
     baseAction: TWITCH_FETCH_FOLLOWED_USERS,
-    query: { id: idChunk },
-  }))));
+    query: chunk(filteredUsers, 100).map(ids => ({ id: ids })),
+  }));
 };
 
 export const fetchFollowed = () => async (dispatch) => {

@@ -60,6 +60,8 @@ export const createQueryParameters = (query = {}) => (
     .join('&')
 );
 
+export const createUrl = (url, query) => `${url}?${createQueryParameters(query)}`;
+
 export const mergeBy = (sourceArray, ...options) => {
   if (options.length <= 1) {
     return sourceArray;

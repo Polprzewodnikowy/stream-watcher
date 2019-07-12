@@ -22,12 +22,23 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
 
   Object.assign(twitchHeaders, headers);
 
-  const transformFunction = ({ data, ...other }) => ({ data: transform(data), ...other });
+  const transformFunction = ({
+    data,
+    ...other
+  }) => ({
+    data: transform(data),
+    ...other,
+  });
+
+  const combineFunction = list => list.reduce((prev, next) => ({
+    data: [...prev.data, ...next.data],
+  }), { data: [] });
 
   return dispatch(buildRequestActionCreator({
     ...optionParams,
     headers: twitchHeaders,
     transform: transformFunction,
+    combine: combineFunction,
     transformError,
   }));
 };

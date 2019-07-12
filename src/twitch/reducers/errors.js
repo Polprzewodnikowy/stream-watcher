@@ -7,18 +7,18 @@ import {
   TWITCH_CLEAR_ERRORS,
 } from '../actionTypes';
 
-const errors = (state = {}, action) => {
-  switch (action.type) {
+const errors = (state = {}, { type, error }) => {
+  switch (type) {
     case TWITCH_FETCH_USER_ERROR:
-      return { ...state, user: action.error };
+      return { ...state, user: error };
     case TWITCH_FETCH_FOLLOWED_IDS_ERROR:
-      return { ...state, followedIds: action.error };
+      return { ...state, followedIds: error };
     case TWITCH_FETCH_FOLLOWED_USERS_ERROR:
-      return { ...state, followed: action.error };
+      return { ...state, followed: error };
     case TWITCH_FETCH_STREAMS_ERROR:
-      return { ...state, streams: action.error };
+      return { ...state, streams: error };
     case TWITCH_FETCH_GAMES_ERROR:
-      return { ...state, games: action.error };
+      return { ...state, games: error };
     case TWITCH_CLEAR_ERRORS:
       return {};
     default:

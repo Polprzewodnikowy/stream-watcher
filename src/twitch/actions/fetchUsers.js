@@ -6,9 +6,9 @@ import { transformUsers } from '../transform';
 
 export const fetchUsers = options => dispatch => (
   dispatch(buildTwitchRequestActionCreator({
+    ...options,
     url: TWITCH_USERS_URL,
     transform: transformUsers,
-    ...options,
   }))
 );
 
