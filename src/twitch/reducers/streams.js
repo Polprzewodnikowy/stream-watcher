@@ -20,7 +20,6 @@ const streams = (state = [], { type, payload }) => {
 const [
   isFetchingStreams,
   fetchedStreamsSuccessfully,
-  fetchedStreamsInitial,
 ] = buildActionReducers({
   start: TWITCH_FETCH_STREAMS,
   success: TWITCH_FETCH_STREAMS_SUCCESS,
@@ -32,5 +31,4 @@ export {
   streams,
   isFetchingStreams,
   fetchedStreamsSuccessfully,
-  fetchedStreamsInitial,
 };

@@ -28,14 +28,4 @@ export const buildActionReducers = ({
         return state;
     }
   },
-  (state = false, { type }) => {
-    switch (type) {
-      case success:
-        return true;
-      case clear:
-        return false;
-      default:
-        return state;
-    }
-  },
 ]);

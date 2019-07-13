@@ -16,7 +16,10 @@ export const buildRequestActionCreator = options => (dispatch) => {
     baseAction,
     url,
     headers,
-    method,
+    method = 'GET',
+    mode = 'cors',
+    contentType = 'application/json',
+    body,
     query,
     transform,
     combine,
@@ -31,7 +34,15 @@ export const buildRequestActionCreator = options => (dispatch) => {
 
   actions.start();
 
-  const fetchOptions = { headers, method };
+  const fetchOptions = {
+    headers: {
+      ...headers,
+      'Content-Type': contentType,
+    },
+    method,
+    mode,
+    body,
+  };
 
   const isParallelQuery = utils.isArray(query);
   const urlWithQueryParams = (
@@ -72,8 +83,7 @@ export const buildRequestActionCreator = options => (dispatch) => {
 
   const fetchAction = fetchUrl => fetch(fetchUrl, fetchOptions)
     .then(checkResponse)
-    .then(transformFunction)
-    .catch(processErrors);
+    .then(transformFunction);
 
   return (
     isParallelQuery
@@ -81,5 +91,6 @@ export const buildRequestActionCreator = options => (dispatch) => {
       : fetchAction(urlWithQueryParams)
   )
     .then(combineFunction)
-    .then(processData);
+    .then(processData)
+    .catch(processErrors);
 };

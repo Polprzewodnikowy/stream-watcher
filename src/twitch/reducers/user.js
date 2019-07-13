@@ -20,7 +20,6 @@ const user = (state = {}, { type, payload }) => {
 const [
   isFetchingUser,
   fetchedUserSuccessfully,
-  fetchedUserInitial,
 ] = buildActionReducers({
   start: TWITCH_FETCH_USER,
   success: TWITCH_FETCH_USER_SUCCESS,
@@ -32,5 +31,4 @@ export {
   user,
   isFetchingUser,
   fetchedUserSuccessfully,
-  fetchedUserInitial,
 };

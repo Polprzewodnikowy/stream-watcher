@@ -21,7 +21,6 @@ const games = (state = [], { type, payload }) => {
 const [
   isFetchingGames,
   fetchedGamesSuccessfully,
-  fetchedGamesInitial,
 ] = buildActionReducers({
   start: TWITCH_FETCH_GAMES,
   success: TWITCH_FETCH_GAMES_SUCCESS,
@@ -33,5 +32,4 @@ export {
   games,
   isFetchingGames,
   fetchedGamesSuccessfully,
-  fetchedGamesInitial,
 };

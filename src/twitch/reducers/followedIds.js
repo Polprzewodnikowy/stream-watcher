@@ -44,7 +44,6 @@ const cursor = (state = null, { type, payload }) => {
 const [
   isFetchingFollowedIds,
   fetchedFollowedIdsSuccessfully,
-  fetchedFollowedIdsInitial,
 ] = buildActionReducers({
   start: TWITCH_FETCH_FOLLOWED_IDS,
   success: TWITCH_FETCH_FOLLOWED_IDS_SUCCESS,
@@ -62,5 +61,4 @@ export {
   followedIds,
   isFetchingFollowedIds,
   fetchedFollowedIdsSuccessfully,
-  fetchedFollowedIdsInitial,
 };

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TwitchErrorModal from './TwitchErrorModal';
-import { clearErrors } from '../actions';
+import { clearErrors, clearAll, fetchAll } from '../actions';
 
 const mapStateToProps = ({ twitch: { errors } }) => {
   const {
@@ -21,6 +21,11 @@ const mapStateToProps = ({ twitch: { errors } }) => {
 
 const mapDispatchToProps = dispatch => ({
   onClose: () => dispatch(clearErrors()),
+  onRefresh: () => {
+    dispatch(clearErrors());
+    dispatch(clearAll());
+    dispatch(fetchAll());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TwitchErrorModal);

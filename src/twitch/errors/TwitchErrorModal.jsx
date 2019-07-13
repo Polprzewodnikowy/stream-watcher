@@ -3,54 +3,67 @@ import React from 'react';
 import {
   makeStyles,
   Typography,
-  Paper,
-  Button,
-  Modal,
+  Slide,
+  Snackbar,
+  SnackbarContent,
+  IconButton,
 } from '@material-ui/core';
 import { messages } from 'shared';
+import { Error, Close, Refresh } from '@material-ui/icons';
 
-const { closeModal, unknownErrorType, unknownErrorMessage } = messages.en.errors;
+const { unknownErrorType, unknownErrorMessage } = messages.en.errors;
 
 const useStyles = makeStyles(theme => ({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    outline: 'none',
-    width: 500,
-    padding: theme.spacing(4),
+  error: {
+    color: theme.palette.error.contrastText,
+    backgroundColor: theme.palette.error.dark,
   },
-  row: {
-    paddingBottom: theme.spacing(2),
+  message: {
+    display: 'flex',
+    alignItems: 'center',
   },
-  actions: {
-    paddingTop: theme.spacing(2),
-    float: 'right',
+  icon: {
+    fontSize: 30,
+    marginRight: theme.spacing(1.5),
   },
 }));
 
-const TwitchErrorModal = ({ error, isModalVisible, onClose }) => {
+const TwitchErrorModal = ({
+  error,
+  isModalVisible,
+  onClose,
+  onRefresh,
+}) => {
   const styles = useStyles();
 
   return (
-    <Modal open={isModalVisible} onClose={onClose}>
-      <Paper className={styles.modal}>
-        <div className={styles.row}>
-          <Typography variant="h5">
-            {error ? error.errorType : unknownErrorType}
-          </Typography>
-        </div>
-        <div className={styles.row}>
-          <Typography variant="body1">
-            {error ? error.message : unknownErrorMessage}
-          </Typography>
-        </div>
-        <div className={styles.actions}>
-          <Button onClick={onClose}>{closeModal}</Button>
-        </div>
-      </Paper>
-    </Modal>
+    <Snackbar
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      TransitionComponent={props => <Slide {...props} direction="down" />}
+      open={isModalVisible}
+      onClose={onClose}
+    >
+      <SnackbarContent
+        className={styles.error}
+        message={(
+          <div className={styles.message}>
+            <Error className={styles.icon} />
+            <div>
+              <Typography variant="body1">{(error && error.errorType) || unknownErrorType}</Typography>
+              <Typography variant="body2">{(error && error.message) || unknownErrorMessage}</Typography>
+            </div>
+          </div>
+        )}
+        action={[
+          <IconButton key="refresh" color="inherit" onClick={onRefresh}>
+            <Refresh />
+          </IconButton>,
+          <IconButton key="close" color="inherit" onClick={onClose}>
+            <Close />
+          </IconButton>,
+        ]}
+      />
+    </Snackbar>
   );
 };
 
@@ -65,6 +78,7 @@ TwitchErrorModal.propTypes = {
   }),
   isModalVisible: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired,
 };
 
 export default TwitchErrorModal;
