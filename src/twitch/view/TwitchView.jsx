@@ -1,84 +1,50 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import TwitchPlayerContainer from '../player/TwitchPlayerContainer';
-import TwitchChatContainer from '../chat/TwitchChatContainer';
-import TwitchLogicContainer from '../logic/TwitchLogicContainer';
-import TwitchErrorModalContainer from '../errors/TwitchErrorModalContainer';
+import { PlayerWithChatContainer } from '../playerWithChat';
+import { TwitchVideosContainer } from '../videos';
+import { TwitchLogicContainer } from '../logic';
+import { TwitchErrorModalContainer } from '../errors';
 
-const useStyles = makeStyles(theme => ({
-  gridContainer: {
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-    },
-  },
-  gridPlayer: {
-    width: '100%',
-  },
-  gridChat: {
-    flexGrow: 1,
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: '335px',
-    },
-  },
-  playerWrapperOutside: {
-    height: '100%',
-    [theme.breakpoints.down('xs')]: {
-      height: 0,
-      overflow: 'hidden',
-      paddingTop: '56.25%',
-      position: 'relative',
-    },
-  },
-  playerWrapperInside: {
+const useStyles = makeStyles({
+  container: {
     width: '100%',
     height: '100%',
-    [theme.breakpoints.down('xs')]: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    },
+    position: 'relative',
   },
-}));
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+});
 
-const TwitchView = ({ showTwitch, showChat }) => {
+const TwitchView = ({ showVideos }) => {
   const styles = useStyles();
 
   return (
-    <>
-      {showTwitch ? (
-        <Grid container className={styles.gridContainer}>
-          <Grid sm item className={styles.gridPlayer}>
-            <div className={styles.playerWrapperOutside}>
-              <div className={styles.playerWrapperInside}>
-                <TwitchPlayerContainer />
-              </div>
-            </div>
-          </Grid>
-          {showChat && (
-            <Grid sm item className={styles.gridChat}>
-              <TwitchChatContainer />
-            </Grid>
-          )}
-        </Grid>
-      ) : (
-        null
-      )}
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <PlayerWithChatContainer />
+      </div>
+      <Slide mountOnEnter unmountOnExit direction="down" in={showVideos}>
+        <div className={styles.wrapper}>
+          <TwitchVideosContainer />
+        </div>
+      </Slide>
       <TwitchLogicContainer />
       <TwitchErrorModalContainer />
-    </>
+    </div>
   );
 };
 
 TwitchView.defaultProps = {
-  showChat: true,
-  showTwitch: false,
+  showVideos: false,
 };
 
 TwitchView.propTypes = {
-  showChat: PropTypes.bool,
-  showTwitch: PropTypes.bool,
+  showVideos: PropTypes.bool,
 };
 
 export default TwitchView;

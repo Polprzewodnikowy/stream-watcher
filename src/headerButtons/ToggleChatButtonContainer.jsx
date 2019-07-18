@@ -8,14 +8,16 @@ import ActionButton from './ActionButton';
 
 const { tooltips } = messages.en.actions;
 
-const ToggleChatButton = ({ showChat, toggleChat }) => (
-  <ActionButton
-    icon
-    tooltip={showChat ? tooltips.hideChat : tooltips.showChat}
-    onClick={toggleChat}
-  >
-    {showChat ? <Chat /> : <ChatOutlined />}
-  </ActionButton>
+const ToggleChatButton = ({ show, showChat, toggleChat }) => (
+  show && (
+    <ActionButton
+      icon
+      tooltip={showChat ? tooltips.hideChat : tooltips.showChat}
+      onClick={toggleChat}
+    >
+      {showChat ? <Chat /> : <ChatOutlined />}
+    </ActionButton>
+  )
 );
 
 ToggleChatButton.propTypes = {
@@ -23,7 +25,15 @@ ToggleChatButton.propTypes = {
   toggleChat: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ twitch: { showChat } }) => ({ showChat });
+const mapStateToProps = ({
+  twitch: {
+    channel,
+    showChat,
+  },
+}) => ({
+  show: Boolean(channel),
+  showChat,
+});
 
 const mapDispatchToProps = dispatch => ({
   toggleChat: () => dispatch(twitchActions.toggleShowChatState()),

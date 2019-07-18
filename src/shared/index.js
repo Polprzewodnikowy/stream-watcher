@@ -1,7 +1,7 @@
 import { buildActionCreator, buildRequestActionCreator, buildActionReducers } from './redux';
 import messages from './messages';
 import * as utils from './utils';
-import Delay from './Delay';
+import Loader from './Loader';
 
 export {
   buildActionCreator,
@@ -9,5 +9,5 @@ export {
   buildActionReducers,
   messages,
   utils,
-  Delay,
+  Loader,
 };

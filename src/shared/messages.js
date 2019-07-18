@@ -10,7 +10,9 @@ const messages = {
         showChat: 'Show chat',
         hideChat: 'Hide chat',
         closeStream: 'Close stream',
+        closeVideo: 'Close video',
         refreshData: 'Refresh data',
+        showVideos: 'Show videos',
       },
     },
     errors: {
@@ -21,6 +23,9 @@ const messages = {
       unknownErrorMessage: 'Try refreshing the page',
     },
     twitch: {
+      labels: {
+        views: 'views',
+      },
       error: 'Twitch error',
     },
   },

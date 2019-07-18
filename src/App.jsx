@@ -5,13 +5,24 @@ import { CssBaseline } from '@material-ui/core';
 import store from 'store';
 import { theme } from 'theme';
 import { Layout } from 'layout';
-import { TwitchViewContainer } from 'twitch';
+import { TwitchViewContainer, TwitchChannelsContainer } from 'twitch';
+import { TitleContainer } from 'title';
+import { HeaderButtons } from 'headerButtons';
 
 const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout>
+      <Layout
+        header={(
+          <>
+            <TitleContainer showFullTitle />
+            <HeaderButtons />
+          </>
+        )}
+        sidebar={<TwitchChannelsContainer />}
+        sidebarHeader={<TitleContainer />}
+      >
         <TwitchViewContainer />
       </Layout>
     </ThemeProvider>

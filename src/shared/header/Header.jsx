@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
+  makeStyles,
   AppBar,
   IconButton,
   Toolbar,
-  makeStyles,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 

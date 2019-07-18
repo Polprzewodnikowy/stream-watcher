@@ -25,8 +25,15 @@ import {
   isFetchingGames,
   fetchedGamesSuccessfully,
 } from './games';
+import {
+  videos,
+  isFetchingVideos,
+  fetchedVideosSuccessfully,
+} from './videos';
 import channel from './channel';
+import video from './video';
 import showChat from './showChat';
+import showVideos from './showVideos';
 import refreshInterval from './refreshInterval';
 import errors from './errors';
 
@@ -47,8 +54,13 @@ const twitch = combineReducers({
   games,
   isFetchingGames,
   fetchedGamesSuccessfully,
+  videos,
+  isFetchingVideos,
+  fetchedVideosSuccessfully,
   channel,
+  video,
   showChat,
+  showVideos,
   refreshInterval,
   errors,
 });

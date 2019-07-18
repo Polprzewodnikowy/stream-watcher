@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
 const TwitchLogic = ({
+  channel,
   clearUrl,
   fetchInitialData,
   getToken,
   refreshData,
   refreshInterval,
+  refreshVideos,
   saveToken,
 }) => {
   useEffect(() => {
@@ -37,6 +39,7 @@ TwitchLogic.propTypes = {
   getToken: PropTypes.func.isRequired,
   refreshData: PropTypes.func.isRequired,
   refreshInterval: PropTypes.number.isRequired,
+  refreshVideos: PropTypes.func.isRequired,
   saveToken: PropTypes.func.isRequired,
 };
 

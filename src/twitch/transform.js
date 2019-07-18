@@ -35,6 +35,29 @@ const transformGame = ({
   gameTitle: name,
 });
 
+const transformVideo = ({
+  created_at,
+  description,
+  duration,
+  id,
+  published_at,
+  thumbnail_url,
+  title,
+  user_id,
+  view_count,
+}) => ({
+  videoId: Number(id),
+  userId: Number(user_id),
+  title,
+  description,
+  duration,
+  createdAt: created_at,
+  publishedAt: published_at,
+  viewCount: Number(view_count),
+  thumbnailUrl: thumbnail_url,
+});
+
+
 export const transformError = ({
   error,
   status,
@@ -49,6 +72,7 @@ export const transformUsers = data => data.map(user => transformUser(user));
 export const transformUsersFollows = data => data.map(item => Number(item.to_id));
 export const transformStreams = data => data.map(stream => transformStream(stream));
 export const transformGames = data => data.map(game => transformGame(game));
+export const transformVideos = data => data.map(video => transformVideo(video));
 
 export const filterAndTransformGameIds = (streams, games) => streams
   .filter(({ gameId }) => !games.find(game => gameId === game.gameId))

@@ -40,7 +40,7 @@ export const getStreamsWithGames = createSelector(
   (streams, games) => utils.mergeBy(streams, games, 'gameId'),
 );
 
-export const getChannelList = createSelector(
+export const getChannels = createSelector(
   getFollowed,
   getStreamsWithGames,
   (followed, streams) => utils.sortDescBy(utils.mergeBy(followed, streams, 'userId'), 'viewers'),

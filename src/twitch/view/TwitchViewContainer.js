@@ -1,11 +1,6 @@
 import { connect } from 'react-redux';
 import TwitchView from './TwitchView';
 
-const mapStateToProps = ({
-  twitch: { channel, showChat },
-}) => ({
-  showTwitch: Boolean(channel),
-  showChat,
-});
+const mapStateToProps = ({ twitch: { showVideos } }) => ({ showVideos });
 
 export default connect(mapStateToProps)(TwitchView);

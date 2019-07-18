@@ -21,7 +21,7 @@ const TwitchChat = ({ channel, title }) => {
 };
 
 TwitchChat.defaultProps = {
-  channel: '',
+  channel: null,
   title: 'twitch-chat',
 };
 

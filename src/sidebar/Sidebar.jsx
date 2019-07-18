@@ -5,6 +5,7 @@ import { SwipeableDrawer } from '@material-ui/core';
 const Sidebar = ({ children, isOpen, setOpen }) => (
   <SwipeableDrawer
     disableBackdropTransition
+    keepMounted
     open={isOpen}
     onOpen={() => setOpen(true)}
     onClose={() => setOpen(false)}

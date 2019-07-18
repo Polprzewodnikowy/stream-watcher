@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { HeaderContainer } from 'header';
-import { TitleContainer } from 'title';
-import { HeaderButtons } from 'headerButtons';
+import { HeaderContainer } from 'shared/header';
 import { SidebarContainer } from 'sidebar';
-import { ChannelListContainer } from 'channelList';
-import { LoaderContainer } from 'loader';
 
 const useStyles = makeStyles({
   app: {
@@ -17,33 +13,42 @@ const useStyles = makeStyles({
   },
 });
 
-const Layout = ({ children }) => {
+const Layout = ({
+  children,
+  header,
+  sidebar,
+  sidebarHeader,
+}) => {
   const styles = useStyles();
 
   return (
     <div className={styles.app}>
       <HeaderContainer>
-        <TitleContainer showFullTitle />
-        <HeaderButtons />
+        {header}
       </HeaderContainer>
       {children}
       <SidebarContainer>
         <HeaderContainer>
-          <TitleContainer />
+          {sidebarHeader}
         </HeaderContainer>
-        <ChannelListContainer />
+        {sidebar}
       </SidebarContainer>
-      <LoaderContainer />
     </div>
   );
 };
 
 Layout.defaultProps = {
   children: null,
+  header: null,
+  sidebar: null,
+  sidebarHeader: null,
 };
 
 Layout.propTypes = {
   children: PropTypes.node,
+  header: PropTypes.node,
+  sidebar: PropTypes.node,
+  sidebarHeader: PropTypes.node,
 };
 
 export default Layout;

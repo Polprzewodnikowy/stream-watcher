@@ -7,7 +7,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { twitchUtils, twitchTypes } from 'twitch';
+import { isStreamLive } from '../../utils';
+import * as twitchTypes from '../../types';
 
 const useStyles = makeStyles({
   dimAvatar: {
@@ -21,28 +22,24 @@ const useStyles = makeStyles({
   },
   subtitleContainer: {
     display: 'grid',
-    gridTemplateColumns: '1fr auto auto',
-  },
-  spacer: {
-    width: '10px',
+    gridTemplateColumns: '1fr 10px auto',
   },
 });
 
-const ChannelListItem = ({
-  avatarUrl,
-  gameTitle,
-  isSelected,
-  login,
-  name,
-  changeChannel,
-  title,
-  type,
-  viewers,
-}) => {
+const Channel = ({ changeChannel, channel, isSelected }) => {
   const styles = useStyles();
-  const isActive = twitchUtils.isStreamLiveOrRerun(type);
-  const liveIcon = twitchUtils.isStreamLive(type) ? '🔴' : '';
-  const rerunIcon = twitchUtils.isStreamRerun(type) ? '🔵' : '';
+
+  const {
+    avatarUrl,
+    gameTitle,
+    login,
+    name,
+    title,
+    type,
+    viewers,
+  } = channel;
+
+  const isActive = isStreamLive(type);
 
   return (
     <ListItem
@@ -57,9 +54,9 @@ const ChannelListItem = ({
         <Typography variant="body2" noWrap>{name}</Typography>
         <div className={styles.subtitleContainer}>
           <Typography variant="body2" color="textSecondary" noWrap>{gameTitle}</Typography>
-          <div className={styles.spacer} />
+          <div />
           <Typography variant="body2" color="textSecondary" noWrap>
-            {isActive && `${liveIcon}${rerunIcon} ${viewers}`}
+            {isActive && `🔴 ${viewers}`}
           </Typography>
         </div>
       </div>
@@ -67,10 +64,10 @@ const ChannelListItem = ({
   );
 };
 
-ChannelListItem.propTypes = {
-  ...twitchTypes.channel,
+Channel.propTypes = {
   changeChannel: PropTypes.func.isRequired,
+  channel: twitchTypes.channelType.isRequired,
   isSelected: PropTypes.bool.isRequired,
 };
 
-export default ChannelListItem;
+export default Channel;

@@ -15,16 +15,16 @@ const useStyles = makeStyles({
   },
 });
 
-const TwitchPlayer = ({ channel, targetID }) => {
+const TwitchPlayer = ({ channel, targetID, video }) => {
   const [player, setPlayer] = useState(null);
   const classes = useStyles();
 
   const initPlayer = useCallback(async () => {
     await loadTwitchPlayer();
     if (!player) {
-      setPlayer(new window.Twitch.Player(targetID, { channel }));
+      setPlayer(new window.Twitch.Player(targetID, { video, channel }));
     }
-  }, [player, targetID, channel]);
+  }, [targetID, player, video, channel]);
 
   useEffect(() => {
     initPlayer();
@@ -32,9 +32,15 @@ const TwitchPlayer = ({ channel, targetID }) => {
 
   useEffect(() => {
     if (player) {
-      player.setChannel(channel);
+      if (video) {
+        player.setVideo(video);
+      } else if (channel) {
+        player.setChannel(channel);
+      } else {
+        player.pause();
+      }
     }
-  }, [channel, player]);
+  }, [player, video, channel]);
 
   return (
     <div id={targetID} className={classes.player} />
@@ -42,13 +48,15 @@ const TwitchPlayer = ({ channel, targetID }) => {
 };
 
 TwitchPlayer.defaultProps = {
-  channel: '',
+  channel: null,
   targetID: 'twitch-player',
+  video: null,
 };
 
 TwitchPlayer.propTypes = {
   channel: PropTypes.string,
   targetID: PropTypes.string,
+  video: PropTypes.string,
 };
 
 export default TwitchPlayer;
