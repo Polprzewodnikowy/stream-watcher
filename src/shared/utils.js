@@ -18,6 +18,7 @@ export const loadFromLocalStorage = (key) => {
 
 export const deleteInLocalStorage = key => window.localStorage.removeItem(key);
 
+export const isUndefined = object => typeof object === 'undefined';
 export const isString = object => typeof object === 'string';
 export const isNumber = object => typeof object === 'number';
 export const isArray = object => Array.isArray(object);
@@ -78,7 +79,7 @@ export const mergeBy = (sourceArray, ...options) => {
   }));
 };
 
-const getDefaultValue = value => ((value && value !== 0) ? value : -1);
+const getDefaultValue = value => (!isUndefined(value) ? value : Number.MIN_VALUE);
 const sortBy = (array, id, dir) => array
   .sort((a, b) => getDefaultValue(dir ? a[id] : b[id]) - getDefaultValue(!dir ? a[id] : b[id]));
 export const sortAscBy = (array, id) => sortBy(array, id, true);
