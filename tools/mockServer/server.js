@@ -58,4 +58,4 @@ app.get('/helix/games', (req, res) => {
   res.send({ data: games.filter((game) => gameIds.includes(game.id)) });
 });
 
-app.listen(process.env.HELIX_PORT || 4000);
+app.listen(4000);
