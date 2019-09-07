@@ -11,7 +11,7 @@ export const buildActionCreator = (type, ...argsNames) => (...args) => {
   return action;
 };
 
-export const buildRequestActionCreator = options => (dispatch) => {
+export const buildRequestActionCreator = (options) => (dispatch) => {
   const {
     baseAction,
     url,
@@ -28,8 +28,8 @@ export const buildRequestActionCreator = options => (dispatch) => {
 
   const actions = {
     start: () => baseAction && dispatch(buildActionCreator(baseAction)()),
-    success: payload => baseAction && dispatch(buildActionCreator(`${baseAction}_SUCCESS`, 'payload')(payload)),
-    error: error => baseAction && dispatch(buildActionCreator(`${baseAction}_ERROR`, 'error')(error)),
+    success: (payload) => baseAction && dispatch(buildActionCreator(`${baseAction}_SUCCESS`, 'payload')(payload)),
+    error: (error) => baseAction && dispatch(buildActionCreator(`${baseAction}_ERROR`, 'error')(error)),
   };
 
   actions.start();
@@ -47,14 +47,14 @@ export const buildRequestActionCreator = options => (dispatch) => {
   const isParallelQuery = utils.isArray(query);
   const urlWithQueryParams = (
     query && (
-      isParallelQuery ? query.map(q => utils.createUrl(url, q)) : utils.createUrl(url, query)
+      isParallelQuery ? query.map((q) => utils.createUrl(url, q)) : utils.createUrl(url, query)
     )
   ) || (
     url
   );
-  const transformFunction = transform || (data => data);
-  const combineFunction = (isParallelQuery && combine) || (data => data);
-  const transformErrorFunction = transformError || (error => error);
+  const transformFunction = transform || ((data) => data);
+  const combineFunction = (isParallelQuery && combine) || ((data) => data);
+  const transformErrorFunction = transformError || ((error) => error);
 
   const checkResponse = (response) => {
     if (!response.ok) {
@@ -81,13 +81,13 @@ export const buildRequestActionCreator = options => (dispatch) => {
     }
   };
 
-  const fetchAction = fetchUrl => fetch(fetchUrl, fetchOptions)
+  const fetchAction = (fetchUrl) => fetch(fetchUrl, fetchOptions)
     .then(checkResponse)
     .then(transformFunction);
 
   return (
     isParallelQuery
-      ? Promise.all(urlWithQueryParams.map(fetchUrl => fetchAction(fetchUrl)))
+      ? Promise.all(urlWithQueryParams.map((fetchUrl) => fetchAction(fetchUrl)))
       : fetchAction(urlWithQueryParams)
   )
     .then(combineFunction)

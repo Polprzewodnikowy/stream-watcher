@@ -1,4 +1,4 @@
-export const sanitizeUrl = url => url.split('?')[0].split('#')[0].replace(/\/$/, '');
+export const sanitizeUrl = (url) => url.split('?')[0].split('#')[0].replace(/\/$/, '');
 
 export const removeHashAndParametersFromUrl = () => window.history
   .replaceState(null, null, sanitizeUrl(window.location.href));
@@ -16,12 +16,12 @@ export const loadFromLocalStorage = (key) => {
   }
 };
 
-export const deleteInLocalStorage = key => window.localStorage.removeItem(key);
+export const deleteInLocalStorage = (key) => window.localStorage.removeItem(key);
 
-export const isUndefined = object => typeof object === 'undefined';
-export const isString = object => typeof object === 'string';
-export const isNumber = object => typeof object === 'number';
-export const isArray = object => Array.isArray(object);
+export const isUndefined = (object) => typeof object === 'undefined';
+export const isString = (object) => typeof object === 'string';
+export const isNumber = (object) => typeof object === 'number';
+export const isArray = (object) => Array.isArray(object);
 
 export const getPublicUrl = () => process.env.PUBLIC_URL;
 
@@ -40,7 +40,7 @@ export const getParamsFromHash = () => {
 export const createQueryParameters = (query = {}) => (
   Object
     .keys(query)
-    .filter(key => (
+    .filter((key) => (
       isString(query[key])
       || isNumber(query[key])
       || isArray(query[key])
@@ -53,7 +53,7 @@ export const createQueryParameters = (query = {}) => (
       }
 
       if (isArray(value)) {
-        return value.map(i => `${key}=${i}`).join('&');
+        return value.map((v) => `${key}=${v}`).join('&');
       }
 
       return null;
@@ -70,7 +70,7 @@ export const mergeBy = (sourceArray, ...options) => {
 
   const identifier = options.pop();
 
-  return sourceArray.map(arrayItem => ({
+  return sourceArray.map((arrayItem) => ({
     ...arrayItem,
     ...options.reduce((result, next) => ({
       ...result,
@@ -79,7 +79,7 @@ export const mergeBy = (sourceArray, ...options) => {
   }));
 };
 
-const getDefaultValue = value => (!isUndefined(value) ? value : Number.MIN_VALUE);
+const getDefaultValue = (value) => (!isUndefined(value) ? value : Number.MIN_SAFE_INTEGER);
 const sortBy = (array, id, dir) => array
   .sort((a, b) => getDefaultValue(dir ? a[id] : b[id]) - getDefaultValue(!dir ? a[id] : b[id]));
 export const sortAscBy = (array, id) => sortBy(array, id, true);

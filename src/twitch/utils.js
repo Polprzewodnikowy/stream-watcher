@@ -17,14 +17,14 @@ export const getAuthorizationUrl = () => `${TWITCH_AUTHORIZATION_URL}?${utils.cr
   response_type: 'token',
 })}`;
 
-export const getChatUrl = channel => TWITCH_CHAT_URL.replace('%{channel}', channel);
+export const getChatUrl = (channel) => TWITCH_CHAT_URL.replace('%{channel}', channel);
 export const getThumbnailUrl = (thumbnail, width, height) => thumbnail.replace('%{width}', width).replace('%{height}', height);
 
-export const getDurationText = duration => moment.duration(`PT${duration}`.toUpperCase()).format('HH:mm:ss');
-export const getViewCountText = viewCount => `${viewCount} ${messages.en.twitch.labels.views}`;
-export const getPublishedAtText = publishedAt => moment(publishedAt).fromNow();
+export const getDurationText = (duration) => moment.duration(`PT${duration}`.toUpperCase()).format('HH:mm:ss');
+export const getViewCountText = (viewCount) => `${viewCount} ${messages.en.twitch.labels.views}`;
+export const getPublishedAtText = (publishedAt) => moment(publishedAt).fromNow();
 
-export const isStreamLive = type => type === TWITCH_STREAM_TYPE_LIVE;
+export const isStreamLive = (type) => type === TWITCH_STREAM_TYPE_LIVE;
 
 export const loadTwitchPlayer = () => new Promise((resolve) => {
   const scriptExists = Boolean(document.getElementById(TWITCH_PLAYER_SCRIPT_ID));

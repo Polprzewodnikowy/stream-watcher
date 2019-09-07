@@ -36,7 +36,7 @@ export const fetchFollowedIds = () => (dispatch, getState) => {
 export const fetchFollowedUsers = () => (dispatch, getState) => {
   const { twitch: { followedIds: { list }, followed } } = getState();
 
-  const filteredUsers = list.filter(id => !followed.find(({ userId }) => userId === id));
+  const filteredUsers = list.filter((id) => !followed.find(({ userId }) => userId === id));
 
   if (filteredUsers.length === 0) {
     return null;
@@ -44,7 +44,7 @@ export const fetchFollowedUsers = () => (dispatch, getState) => {
 
   return dispatch(fetchUsers({
     baseAction: TWITCH_FETCH_FOLLOWED_USERS,
-    query: chunk(filteredUsers, 100).map(ids => ({ id: ids })),
+    query: chunk(filteredUsers, 100).map((id) => ({ id })),
   }));
 };
 

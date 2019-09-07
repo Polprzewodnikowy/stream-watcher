@@ -4,8 +4,8 @@ import Sidebar from './Sidebar';
 
 const mapStateToProps = ({ sidebar: { isOpen } }) => ({ isOpen });
 
-const mapDispatchToProps = dispatch => ({
-  setOpen: state => dispatch(setSidebarState(state)),
+const mapDispatchToProps = (dispatch) => ({
+  setOpen: (state) => dispatch(setSidebarState(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

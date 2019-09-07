@@ -18,7 +18,7 @@ export const fetchStreams = () => (dispatch, getState) => {
   return dispatch(buildTwitchRequestActionCreator({
     baseAction: TWITCH_FETCH_STREAMS,
     url: TWITCH_STREAMS_URL,
-    query: chunk(list, 100).map(ids => ({ user_id: ids })),
+    query: chunk(list, 100).map((ids) => ({ user_id: ids })),
     transform: transformStreams,
   }))
     .then(() => dispatch(fetchGames()));

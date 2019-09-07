@@ -3,7 +3,9 @@ import { getTwitchClientID } from '../utils';
 import { TWITCH_CLEAR_ERRORS } from '../actionTypes';
 import { transformError } from '../transform';
 
-export const buildTwitchRequestActionCreator = options => (dispatch, getState) => {
+export const clearErrors = buildActionCreator(TWITCH_CLEAR_ERRORS);
+
+export const buildTwitchRequestActionCreator = (options) => (dispatch, getState) => {
   const { twitch: { token } } = getState();
 
   const {
@@ -30,7 +32,7 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
     ...other,
   });
 
-  const combineFunction = list => list.reduce((prev, next) => ({
+  const combineFunction = (list) => list.reduce((prev, next) => ({
     data: [...prev.data, ...next.data],
   }), { data: [] });
 
@@ -42,5 +44,3 @@ export const buildTwitchRequestActionCreator = options => (dispatch, getState) =
     transformError,
   }));
 };
-
-export const clearErrors = buildActionCreator(TWITCH_CLEAR_ERRORS);
