@@ -19,7 +19,7 @@ const mapStateToProps = ({ twitch: { errors } }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onClose: () => dispatch(clearErrors()),
   onRefresh: () => {
     dispatch(clearErrors());

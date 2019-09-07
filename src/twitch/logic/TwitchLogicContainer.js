@@ -19,7 +19,7 @@ const mapStateToProps = ({
   refreshInterval,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   clearUrl: () => utils.removeHashAndParametersFromUrl(),
   fetchInitialData: () => dispatch(fetchAll()),
   getToken: () => {
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(clearVideos());
     dispatch(fetchVideos());
   },
-  saveToken: token => dispatch(saveToken(token)),
+  saveToken: (token) => dispatch(saveToken(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TwitchLogic);

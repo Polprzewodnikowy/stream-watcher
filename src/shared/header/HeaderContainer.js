@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { sidebarActions } from 'sidebar';
 import Header from './Header';
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleSidebar: () => dispatch(sidebarActions.toggleSidebarState()),
 });
 

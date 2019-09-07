@@ -23,7 +23,8 @@ module.exports = {
     'react-hooks',
   ],
   rules: {
-    'import/prefer-default-export': false,
+    'import/prefer-default-export': 0,
+    'import/no-extraneous-dependencies': 0,
   },
   settings: {
     'import/resolver': {

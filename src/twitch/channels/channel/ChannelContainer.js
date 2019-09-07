@@ -3,7 +3,7 @@ import { setSidebarState } from 'sidebar/actions';
 import Channel from './Channel';
 import { clearVideo, setChannel } from '../../actions';
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeChannel: (channel) => {
     dispatch(setSidebarState(false));
     dispatch(clearVideo());

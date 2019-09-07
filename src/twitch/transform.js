@@ -68,13 +68,13 @@ export const transformError = ({
   message,
 });
 
-export const transformUsers = data => data.map(user => transformUser(user));
-export const transformUsersFollows = data => data.map(item => Number(item.to_id));
-export const transformStreams = data => data.map(stream => transformStream(stream));
-export const transformGames = data => data.map(game => transformGame(game));
-export const transformVideos = data => data.map(video => transformVideo(video));
+export const transformUsers = (data) => data.map((user) => transformUser(user));
+export const transformUsersFollows = (data) => data.map((item) => Number(item.to_id));
+export const transformStreams = (data) => data.map((stream) => transformStream(stream));
+export const transformGames = (data) => data.map((game) => transformGame(game));
+export const transformVideos = (data) => data.map((video) => transformVideo(video));
 
 export const filterAndTransformGameIds = (streams, games) => streams
-  .filter(({ gameId }) => !games.find(game => gameId === game.gameId))
+  .filter(({ gameId }) => !games.find((game) => gameId === game.gameId))
   .filter(({ gameId }) => gameId !== 0)
   .map(({ gameId }) => gameId);

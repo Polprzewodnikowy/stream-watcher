@@ -4,7 +4,7 @@ import { TWITCH_FETCH_USER, TWITCH_CLEAR_USER } from '../actionTypes';
 import { TWITCH_USERS_URL } from '../constants';
 import { transformUsers } from '../transform';
 
-export const fetchUsers = options => dispatch => (
+export const fetchUsers = (options) => (dispatch) => (
   dispatch(buildTwitchRequestActionCreator({
     ...options,
     url: TWITCH_USERS_URL,

@@ -19,7 +19,7 @@ export const fetchGames = () => (dispatch, getState) => {
   return dispatch(buildTwitchRequestActionCreator({
     baseAction: TWITCH_FETCH_GAMES,
     url: TWITCH_GAMES_URL,
-    query: chunk(filteredGames, 100).map(ids => ({ id: ids })),
+    query: chunk(filteredGames, 100).map((ids) => ({ id: ids })),
     transform: transformGames,
   }));
 };

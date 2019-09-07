@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { utils } from 'shared';
 
-export const getChannel = twitch => twitch.channel;
-export const getFollowed = twitch => twitch.followed;
-export const getStreams = twitch => twitch.streams;
-export const getGames = twitch => twitch.games;
+export const getChannel = (twitch) => twitch.channel;
+export const getFollowed = (twitch) => twitch.followed;
+export const getStreams = (twitch) => twitch.streams;
+export const getGames = (twitch) => twitch.games;
 
 export const getSelectedChannel = createSelector(
   getChannel,
@@ -21,17 +21,17 @@ export const getSelectedStream = createSelector(
 
 export const getChannelAvatarUrl = createSelector(
   getSelectedChannel,
-  selectedChannel => selectedChannel.avatarUrl,
+  (selectedChannel) => selectedChannel.avatarUrl,
 );
 
 export const getChannelName = createSelector(
   getSelectedChannel,
-  selectedChannel => selectedChannel.name,
+  (selectedChannel) => selectedChannel.name,
 );
 
 export const getStreamTitle = createSelector(
   getSelectedStream,
-  selectedStream => selectedStream.title,
+  (selectedStream) => selectedStream.title,
 );
 
 export const getStreamsWithGames = createSelector(

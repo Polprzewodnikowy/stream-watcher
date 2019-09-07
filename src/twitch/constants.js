@@ -1,6 +1,6 @@
-export const TWITCH_AUTHORIZATION_URL = 'https://id.twitch.tv/oauth2/authorize';
+export const TWITCH_AUTHORIZATION_URL = `${process.env.REACT_APP_TWITCH_MOCK_SERVER_URL || 'https://id.twitch.tv'}/oauth2/authorize`;
 
-export const TWITCH_API_URL = 'https://api.twitch.tv/helix';
+export const TWITCH_API_URL = `${process.env.REACT_APP_TWITCH_MOCK_SERVER_URL || 'https://api.twitch.tv'}/helix`;
 
 export const TWITCH_USERS_URL = `${TWITCH_API_URL}/users`;
 export const TWITCH_USERS_FOLLOWS_URL = `${TWITCH_USERS_URL}/follows`;
