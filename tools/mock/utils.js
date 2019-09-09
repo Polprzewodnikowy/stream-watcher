@@ -1,4 +1,4 @@
-const processQueryParam = (param, defaultValue) => {
+const processArrayParameter = (param, defaultValue) => {
   if (param) {
     return Array.isArray(param) ? param : [param];
   }
@@ -6,5 +6,5 @@ const processQueryParam = (param, defaultValue) => {
 };
 
 module.exports = {
-  processQueryParam,
+  processArrayParameter,
 };
