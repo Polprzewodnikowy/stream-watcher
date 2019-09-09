@@ -1,16 +1,28 @@
 include:
-  template: Dependency-Scanning.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
 stages:
   - test
   - deploy
+  - dast
 
 image: node:latest
 cache:
   paths:
     - node_modules
 
-pages:
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run lint
+    - npm run build
+  only:
+    - merge_requests
+
+deploy:
   stage: deploy
   script:
     - npm install
@@ -24,11 +36,9 @@ pages:
   only:
     - master
 
-test:
-  stage: test
-  script:
-    - npm install
-    - npm run lint
-    - npm run build
+dast:
+  stage: dast
+  variables:
+    DAST_WEBSITE: https://polprzewodnikowy.gitlab.io/stream-watcher
   only:
-    - merge_requests
+    - master
