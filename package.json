@@ -25,8 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src tools/mockServer",
-    "mock": "cd tools/mockServer; nodemon --watch . server.js"
+    "lint": "eslint src tools/mock",
+    "mock": "cd tools/mock; nodemon --watch . server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
