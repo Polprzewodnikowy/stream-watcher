@@ -18,6 +18,4 @@ jobs:
           BASE_BRANCH: master
           BRANCH: gh-pages
           FOLDER: build
-          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
-          REACT_APP_TWITCH_CLIENT_ID: ${{ secrets.REACT_APP_TWITCH_CLIENT_ID }}
-          BUILD_SCRIPT: npm install && npm run build
+          BUILD_SCRIPT: PUBLIC_URL=${{ secrets.PUBLIC_URL }}; REACT_APP_TWITCH_CLIENT_ID=${{ secrets.REACT_APP_TWITCH_CLIENT_ID }}; npm install && npm run build
