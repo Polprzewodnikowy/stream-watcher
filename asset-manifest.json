@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "stream-watcher/static/js/main.4b2a2d14.chunk.js",
-    "main.js.map": "stream-watcher/static/js/main.4b2a2d14.chunk.js.map",
-    "runtime~main.js": "stream-watcher/static/js/runtime~main.3545b17d.js",
-    "runtime~main.js.map": "stream-watcher/static/js/runtime~main.3545b17d.js.map",
-    "static/js/2.27b86ce4.chunk.js": "stream-watcher/static/js/2.27b86ce4.chunk.js",
-    "static/js/2.27b86ce4.chunk.js.map": "stream-watcher/static/js/2.27b86ce4.chunk.js.map",
-    "index.html": "stream-watcher/index.html",
-    "precache-manifest.369bf9d631633c4101540bd35b84a762.js": "stream-watcher/precache-manifest.369bf9d631633c4101540bd35b84a762.js",
-    "service-worker.js": "stream-watcher/service-worker.js"
+    "main.js": "/stream-watcher/static/js/main.6847b817.chunk.js",
+    "main.js.map": "/stream-watcher/static/js/main.6847b817.chunk.js.map",
+    "runtime~main.js": "/stream-watcher/static/js/runtime~main.1db5d022.js",
+    "runtime~main.js.map": "/stream-watcher/static/js/runtime~main.1db5d022.js.map",
+    "static/js/2.27b86ce4.chunk.js": "/stream-watcher/static/js/2.27b86ce4.chunk.js",
+    "static/js/2.27b86ce4.chunk.js.map": "/stream-watcher/static/js/2.27b86ce4.chunk.js.map",
+    "index.html": "/stream-watcher/index.html",
+    "precache-manifest.81911d8a2eff17bd0f1d1ad048e6162e.js": "/stream-watcher/precache-manifest.81911d8a2eff17bd0f1d1ad048e6162e.js",
+    "service-worker.js": "/stream-watcher/service-worker.js"
   }
 }
