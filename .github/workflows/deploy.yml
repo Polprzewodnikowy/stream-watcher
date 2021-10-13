@@ -19,7 +19,7 @@ jobs:
           npm run build
         env:
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
-          REACT_APP_PUBLIC_DOMAIN: ${{ secrets.PUBLIC_DOMAIN }}
+          REACT_APP_PUBLIC_DOMAIN: ${{ secrets.REACT_APP_PUBLIC_DOMAIN }}
           REACT_APP_TWITCH_CLIENT_ID: ${{ secrets.REACT_APP_TWITCH_CLIENT_ID }}
 
       - name: Deploy
