@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.dark,
     boxShadow: theme.shadows[8],
+    gridTemplateColumns: '1fr',
   },
   title: {
     width: '100%',

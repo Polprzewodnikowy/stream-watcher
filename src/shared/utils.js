@@ -23,8 +23,6 @@ export const isString = (object) => typeof object === 'string';
 export const isNumber = (object) => typeof object === 'number';
 export const isArray = (object) => Array.isArray(object);
 
-export const getPublicUrl = () => process.env.PUBLIC_URL;
-
 export const getParamsFromHash = () => {
   const { hash } = window.location;
   if (hash.length) {

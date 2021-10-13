@@ -16,10 +16,13 @@ export const TWITCH_GAMES_URL = `${TWITCH_API_URL}/games`;
 export const TWITCH_VIDEOS_URL = `${TWITCH_API_URL}/videos`;
 
 export const TWITCH_PLAYER_SCRIPT_URL = 'https://player.twitch.tv/js/embed/v1.js';
-export const TWITCH_CHAT_URL = 'https://www.twitch.tv/embed/%{channel}/chat?darkpopout';
+export const TWITCH_CHAT_URL = 'https://www.twitch.tv/embed/%{channel}/chat?parent=%{parent}&darkpopout';
 
 export const TWITCH_PLAYER_SCRIPT_ID = 'twitch-player-script';
 
 export const TWITCH_DEFAULT_REFRESH_INTERVAL = 60 * 1000;
 
 export const TWITCH_STREAM_TYPE_LIVE = 'live';
+
+export const PUBLIC_URL = process.env.PUBLIC_URL || '';
+export const PUBLIC_DOMAIN = process.env.REACT_APP_PUBLIC_DOMAIN || 'localhost';

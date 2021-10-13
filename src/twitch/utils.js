@@ -2,22 +2,24 @@ import moment from 'moment';
 import 'moment-duration-format';
 import { utils, messages } from 'shared';
 import {
+  PUBLIC_DOMAIN,
+  PUBLIC_URL,
   TWITCH_AUTHORIZATION_URL,
   TWITCH_CHAT_URL,
-  TWITCH_PLAYER_SCRIPT_URL,
   TWITCH_PLAYER_SCRIPT_ID,
+  TWITCH_PLAYER_SCRIPT_URL,
   TWITCH_STREAM_TYPE_LIVE,
 } from './constants';
 
 export const getTwitchClientID = () => process.env.REACT_APP_TWITCH_CLIENT_ID;
-export const getRedirectUrl = () => `${new URL(window.location.href).origin}${utils.getPublicUrl()}`;
+export const getRedirectUrl = () => `${new URL(window.location.href).origin}${PUBLIC_URL}`;
 export const getAuthorizationUrl = () => `${TWITCH_AUTHORIZATION_URL}?${utils.createQueryParameters({
   client_id: getTwitchClientID(),
   redirect_uri: getRedirectUrl(),
   response_type: 'token',
 })}`;
 
-export const getChatUrl = (channel) => TWITCH_CHAT_URL.replace('%{channel}', channel);
+export const getChatUrl = (channel) => TWITCH_CHAT_URL.replace('%{channel}', channel).replace('%{parent}', PUBLIC_DOMAIN);
 export const getThumbnailUrl = (thumbnail, width, height) => thumbnail.replace('%{width}', width).replace('%{height}', height);
 
 export const getDurationText = (duration) => moment.duration(`PT${duration}`.toUpperCase()).format('HH:mm:ss');

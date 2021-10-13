@@ -1,0 +1,29 @@
+name: deploy
+
+on:
+  push:	
+    branches:	
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          npm install
+          npm run build
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+          REACT_APP_PUBLIC_DOMAIN: ${{ secrets.PUBLIC_DOMAIN }}
+          REACT_APP_TWITCH_CLIENT_ID: ${{ secrets.REACT_APP_TWITCH_CLIENT_ID }}
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build

@@ -21,7 +21,7 @@ export const fetchVideos = () => (dispatch, getState) => {
   return dispatch(buildTwitchRequestActionCreator({
     baseAction: TWITCH_FETCH_VIDEOS,
     url: TWITCH_VIDEOS_URL,
-    query: { user_id: userId, first: 16, after: cursor },
+    query: { user_id: userId, first: 50, after: cursor },
     transform: transformVideos,
   }));
 };

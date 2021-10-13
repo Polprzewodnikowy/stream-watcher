@@ -9,13 +9,13 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     display: 'flex',
     flexFlow: 'row',
-    [theme.breakpoints.down('xs')]: {
+    '@media screen and (orientation:portrait)': {
       flexFlow: 'column',
     },
   },
   playerContainer: {
     flexGrow: 1,
-    [theme.breakpoints.down('xs')]: {
+    '@media screen and (orientation:portrait)': {
       flexGrow: 0,
       position: 'relative',
       paddingTop: 'calc(100% / (16/9))',
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   chatContainer: {
     minWidth: '335px',
     flexGrow: 0,
-    [theme.breakpoints.down('xs')]: {
+    '@media screen and (orientation:portrait)': {
       flexGrow: 1,
     },
   },
